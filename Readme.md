@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Никита Пузидаров](https://up.htmlacademy.ru/nodejs-api/5/user/2420425).
-* Наставник: `Неизвестно`.
+* Наставник: [Евгений Наумов](https://htmlacademy.ru/profile/naumov_evg).
 
 ---
 
