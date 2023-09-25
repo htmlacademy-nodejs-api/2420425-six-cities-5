@@ -19,6 +19,6 @@ export type Offer = {
   price: number;
   services: OfferService[];
   author: User;
-  commentsCount: number;
+  commentsCount?: number;
   coords: Coords;
 }
