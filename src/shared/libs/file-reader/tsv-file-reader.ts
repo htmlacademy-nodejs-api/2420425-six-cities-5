@@ -60,8 +60,8 @@ export class TSVFileReader implements FileReader {
         author: { name, email, password, avatarPath, type: UserType[userType as keyof typeof UserType] },
         services: services.split(';') as OfferService[],
         coords: {
-          latitude: coords.split(';')[0],
-          longitude: coords.split(';')[1],
+          latitude: coords.split(',')[0],
+          longitude: coords.split(',')[1],
         },
       }));
   }
