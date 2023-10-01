@@ -7,6 +7,9 @@ import { CITIES } from '../../constants/coords.js';
 const MIN_PRICE = 500;
 const MAX_PRICE = 2000;
 
+const MIN_RATE = 1;
+const MAX_RATE = 5;
+
 const FIRST_WEEK_DAY = 1;
 const LAST_WEEK_DAY = 7;
 
@@ -23,11 +26,12 @@ export class TSVOfferGenerator implements OfferGenerator {
     const photos = getRandomItems(this.mockData.photos);
     const preview = getRandomItem(this.mockData.previews);
     const price = generateRandomValue(MIN_PRICE, MAX_PRICE);
-    const userType = getRandomItem([UserType.Default, UserType.Pro]);
+    const userType = getRandomItem(Object.keys(UserType));
     const city = getRandomItem(Object.keys(CityName) as CityName[]);
     const premium = getRandomItem([true, false]);
     const favorite = getRandomItem([true, false]);
     const rooms = generateRandomValue(FIRST_WEEK_DAY, LAST_WEEK_DAY);
+    const rate = generateRandomValue(MIN_RATE, MAX_RATE);
     const offerType = getRandomItem(Object.keys(OfferType));
     const guests = generateRandomValue(FIRST_WEEK_DAY, LAST_WEEK_DAY);
     const services = getRandomItems(Object.keys(OfferService));
@@ -51,8 +55,9 @@ export class TSVOfferGenerator implements OfferGenerator {
       photo: photos.join(';'),
       premium,
       favorite,
-      rooms,
+      rate,
       offerType,
+      rooms,
       guests,
       price,
       services: services.join(';'),
