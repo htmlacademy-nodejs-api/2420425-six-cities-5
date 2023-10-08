@@ -3,7 +3,7 @@ import { Config } from './config.interface.js';
 import { Logger } from '../logger/index.js';
 
 export class RestConfig implements Config {
-  private readonly config: NodeJS.ProcessEnv
+  private readonly config: NodeJS.ProcessEnv;
 
   constructor(
     private readonly logger: Logger
