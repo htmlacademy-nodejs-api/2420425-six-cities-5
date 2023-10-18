@@ -3,4 +3,5 @@ export enum Component {
   Logger = 'Logger',
   RestApplication = 'RestApplication',
   DatabaseClient = 'DatabaseClient',
+  UserService = 'UserService',
 }
