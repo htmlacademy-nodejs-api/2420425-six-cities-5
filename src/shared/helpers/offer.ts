@@ -5,7 +5,6 @@ export function createOffer(offerData: string): Offer {
     name,
     email,
     avatarPath,
-    password,
     userType,
     title,
     description,
@@ -27,7 +26,6 @@ export function createOffer(offerData: string): Offer {
   const user: User = {
     name,
     email,
-    password,
     avatarPath,
     type: UserType[userType as keyof typeof UserType],
   };
