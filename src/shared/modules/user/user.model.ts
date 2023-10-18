@@ -7,10 +7,16 @@ export interface UserDocument extends User, Document {
 }
 
 const userSchema = new Schema({
-  name: String,
+  name: {
+    type: String,
+    required: true,
+    minlength: [2, 'Min length for firstname is 2'],
+  },
   email: {
     type: String,
     unique: true,
+    match: [/^([\w-\\.]+@([\w-]+\.)+[\w-]{2,4})?$/, 'Email is incorrect'],
+    required: true,
   },
   password: String,
   type: String,
