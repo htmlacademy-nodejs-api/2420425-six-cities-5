@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { OfferGenerator } from './offer-generator.interface.js';
-import { CityName, MockServerData, OfferService, OfferType, UserType } from '../../types/index.js';
+import { CityName, MockServerData, OfferAmenity, OfferType, UserType } from '../../types/index.js';
 import { generateRandomValue, getRandomItem, getRandomItems } from '../../helpers/index.js';
 import { CITIES } from '../../constants/coords.js';
 
@@ -34,7 +34,7 @@ export class TSVOfferGenerator implements OfferGenerator {
     const rate = generateRandomValue(MIN_RATE, MAX_RATE);
     const offerType = getRandomItem(Object.keys(OfferType));
     const guests = generateRandomValue(FIRST_WEEK_DAY, LAST_WEEK_DAY);
-    const services = getRandomItems(Object.keys(OfferService));
+    const services = getRandomItems(Object.keys(OfferAmenity));
     const coords = CITIES[city];
 
     const postDate = dayjs()
