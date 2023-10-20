@@ -1,5 +1,5 @@
-import { getModelForClass, prop, defaultClasses, modelOptions } from '@typegoose/typegoose';
-import { CityName, Coords, Offer, OfferAmenity, OfferType } from '../../types/index.js';
+import { getModelForClass, prop, defaultClasses, modelOptions, Ref, mongoose } from '@typegoose/typegoose';
+import { CityName, Coords, OfferAmenity, OfferType } from '../../types/index.js';
 import { UserEntity } from '../user/user.entity.js';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
@@ -11,7 +11,7 @@ export interface OfferEntity extends defaultClasses.Base { }
   }
 })
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
-export class OfferEntity extends defaultClasses.TimeStamps implements Offer {
+export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({ required: true, trim: true, minlength: 10, maxlength: 100 })
   public title: string;
 
@@ -21,7 +21,7 @@ export class OfferEntity extends defaultClasses.TimeStamps implements Offer {
   @prop({ required: true })
   public postDate: Date;
 
-  @prop({ required: true })
+  @prop({ required: true, type: () => String, enum: CityName })
   public city: CityName;
 
   @prop({ required: true })
@@ -39,7 +39,7 @@ export class OfferEntity extends defaultClasses.TimeStamps implements Offer {
   @prop({ required: true, min: 1, max: 5 })
   public rate: number;
 
-  @prop({ required: true })
+  @prop({ required: true, enum: OfferType })
   public type: OfferType;
 
   @prop({ required: true, min: 1, max: 8 })
@@ -51,14 +51,17 @@ export class OfferEntity extends defaultClasses.TimeStamps implements Offer {
   @prop({ required: true, min: 100, max: 100000 })
   public price: number;
 
-  @prop({ required: true })
-  public services: OfferAmenity[];
+  @prop({ required: true, type: String, default: [] })
+  public services: mongoose.Types.Array<OfferAmenity>;
 
-  @prop({ required: true })
-  public author: UserEntity;
+  @prop({
+    ref: UserEntity,
+    required: true
+  })
+  public user: Ref<UserEntity>;
 
-  @prop()
-  public commentsCount?: number;
+  @prop({ default: 0 })
+  public commentCount!: number;
 
   @prop({ required: true })
   public coords: Coords;

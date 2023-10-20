@@ -47,7 +47,7 @@ export function createOffer(offerData: string): Offer {
     guests: Number(guests),
     price: Number.parseInt(price, 10),
     services: services.split(';') as OfferAmenity[],
-    author: user,
+    user: user,
     coords: {
       latitude,
       longitude,

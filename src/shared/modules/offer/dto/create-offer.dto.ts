@@ -16,6 +16,6 @@ export class CreateOfferDto {
   public guests: number;
   public price: number;
   public services: OfferAmenity[];
-  public author: UserEntity;
+  public user: UserEntity;
   public coords: Coords;
 }
