@@ -28,7 +28,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   public preview: string;
 
   @prop({ required: true })
-  public photos: string[];
+  public photos: mongoose.Types.Array<string>;
 
   @prop({ required: true })
   public premium: boolean;
@@ -58,13 +58,13 @@ export class OfferEntity extends defaultClasses.TimeStamps {
     ref: UserEntity,
     required: true
   })
-  public user: Ref<UserEntity>;
+  public userId: Ref<UserEntity>;
 
   @prop({ default: 0 })
   public commentCount!: number;
 
   @prop({ required: true })
-  public coords: Coords;
+  public coords: mongoose.Types.Array<Coords>;
 }
 
 export const OfferModel = getModelForClass(OfferEntity);

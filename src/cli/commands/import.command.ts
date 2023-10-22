@@ -47,9 +47,14 @@ export class ImportCommand implements Command {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { user, ...rest } = offer;
 
-    await this.offerService.create({ ...rest, userId: offerUser._id, });
+    await this.offerService.create({ ...rest, userId: offerUser.id, });
   }
 
+  /**
+   * Команда для запуска
+   *
+   * -- --import './mocks/mock-data.tsv' 'admin_main' 'password' '127.0.0.1' 'main_db' 'secret'
+   */
   public async execute(
     filename: string,
     login: string,

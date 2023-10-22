@@ -24,7 +24,7 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
   @prop({ required: false, default: 'default.jpg' })
   public avatarPath: string;
 
-  @prop({ required: true, minlength: 6, maxlength: 12 })
+  @prop({ required: true })
   private password?: string;
 
   constructor(userData: User) {
