@@ -1,5 +1,5 @@
+import { Types } from 'mongoose';
 import { CityName, Coords, OfferAmenity, OfferType } from '../../../types/index.js';
-import { UserEntity } from '../../user/user.entity.js';
 
 export class CreateOfferDto {
   public title: string;
@@ -16,6 +16,6 @@ export class CreateOfferDto {
   public guests: number;
   public price: number;
   public services: OfferAmenity[];
-  public user: UserEntity;
+  public userId: Types.ObjectId;
   public coords: Coords;
 }
