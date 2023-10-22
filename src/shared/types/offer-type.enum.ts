@@ -5,7 +5,7 @@ export enum OfferType {
   Hotel = 'hotel',
 }
 
-export enum OfferService {
+export enum OfferAmenity {
   AirConditioning = 'Air conditioning',
   BabySeat = 'Baby seat',
   Breakfast = 'Breakfast',
