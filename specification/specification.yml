@@ -1,8 +1,8 @@
 openapi: "3.0.2"
 info:
-  title: API сервер для демо-проекта «Шесть городов»
+  title: API сервер для сервиса аренды жилья «Шесть городов»
   description: |-
-    * Список ресурсов и маршрутов сервера «Куплю. Продам».
+    * Список ресурсов и маршрутов сервера «Шесть городов».
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
@@ -15,3 +15,18 @@ paths:
       responses:
         "200":
           description: OK
+tags:
+  - name: account
+    description: Действия с типом пользователя.
+  - name: comments
+    description: Действия с комментариями.
+  - name: cities
+    description: Действия с городами.
+  - name: offers
+    description: Действия с объявлениями.
+  - name: services
+    description: Действия с удобствами.
+  - name: types
+    description: Действия с типом жилья.
+  - name: users
+    description: Действия с пользователем.
