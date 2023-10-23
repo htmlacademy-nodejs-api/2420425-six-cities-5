@@ -1,0 +1,17 @@
+openapi: "3.0.2"
+info:
+  title: API сервер для демо-проекта «Шесть городов»
+  description: |-
+    * Список ресурсов и маршрутов сервера «Куплю. Продам».
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  version: "1.0.0"
+servers:
+  - url: https://api.server.test/v1
+paths:
+  /test:
+    get:
+      responses:
+        "200":
+          description: OK
