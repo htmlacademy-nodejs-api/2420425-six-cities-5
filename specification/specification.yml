@@ -1,0 +1,294 @@
+openapi: "3.0.2"
+info:
+  title: API сервер для сервиса аренды жилья «Шесть городов»
+  description: |-
+    * Список ресурсов и маршрутов сервера «Шесть городов».
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  version: "1.0.0"
+
+tags:
+  - name: accounts
+    description: Действия с типом пользователя.
+  - name: comments
+    description: Действия с комментариями.
+  - name: cities
+    description: Действия с городами.
+  - name: offers
+    description: Действия с объявлениями.
+  - name: services
+    description: Действия с типами удобств.
+  - name: types
+    description: Действия с типом жилья.
+  - name: users
+    description: Действия с пользователем.
+
+paths:
+  /users/register:
+    post:
+      tags:
+        - users
+      summary: Регистрация пользователя
+      description: Регистрирует нового пользователя.
+      responses:
+        "201":
+          description: Created
+
+  /users/login:
+    post:
+      tags:
+        - users
+      summary: Авторизация пользователя
+      description: Авторизует пользователя на основе логина и пароля
+      responses:
+        "200":
+          description: OK
+
+    get:
+      tags:
+        - users
+      summary: Проверка состояния пользователя
+      description: Возвращает информацию по авторизованному пользователю
+      responses:
+        "200":
+          description: OK
+
+  /users/{userId}/avatar:
+    post:
+      tags:
+        - users
+      summary: Загрузить изображение аватара
+      description: Загружает изображение аватара пользователя. Изображение
+        аватара должно быть в формате `png` или `jpg`.
+      responses:
+        "201":
+          description: Created
+
+  /accounts:
+    post:
+      tags:
+        - accounts
+      summary: Создание нового типа пользователя
+      description: Добавляет в коллекцию новый тип пользователя
+      responses:
+        "201":
+          description: Created
+
+    get:
+      tags:
+        - accounts
+      summary: Получение всех типов пользователя
+      description: Возвращает коллекцию пользователей
+      responses:
+        "200":
+          description: OK
+
+  /accounts/{accountId}:
+    put:
+      tags:
+        - accounts
+      summary: Обновление типа пользователя
+      description: Обновляет указанный тип пользователя
+      responses:
+        "200":
+          description: OK
+
+    delete:
+      tags:
+        - accounts
+      summary: Удаление конкретного типа пользователя
+      description: Удаляет указанный тип пользователя из коллекции
+      responses:
+        "204":
+          description: No Content
+
+  /comments:
+    post:
+      tags:
+        - comments
+      summary: Создание нового комментария
+      description: Добавляет новый комментарий
+      responses:
+        "201":
+          description: Created
+
+    get:
+      tags:
+        - comments
+      summary: Получение комментариев
+      description: Возвращает список всех комментариев
+      responses:
+        "200":
+          description: OK
+
+  /comments/{commentId}:
+    put:
+      tags:
+        - comments
+      summary: Обновление комментария
+      description: Обновляет указанный комментарий
+      responses:
+        "200":
+          description: OK
+
+    delete:
+      tags:
+        - comments
+      summary: Удаление комментария
+      description: Удаляет указанный комментарий
+      responses:
+        "204":
+          description: No Content
+
+  /cities:
+    post:
+      tags:
+        - cities
+      summary: Добавление нового города
+      description: Добавляет в коллекцию новый город
+      responses:
+        "201":
+          description: Created
+
+    get:
+      tags:
+        - cities
+      summary: Получение списка всех городов
+      description: Возвращает список всех городов
+      responses:
+        "200":
+          description: OK
+
+  /cities/{cityId}:
+    put:
+      tags:
+        - cities
+      summary: Обновление города
+      description: Обновляет информацию о переданном городе
+      responses:
+        "200":
+          description: OK
+
+    delete:
+      tags:
+        - cities
+      summary: Удаление города
+      description: Удаляет указанный город из коллекции
+      responses:
+        "204":
+          description: No Content
+
+  /offers:
+    post:
+      tags:
+        - offers
+      summary: Создание нового предложения
+      description: Добавляет в коллекцию новое предложение об аренде
+      responses:
+        "201":
+          description: Created
+
+    get:
+      tags:
+        - offers
+      summary: Получение всех предложений об аренде
+      description: Возвращает список предложений
+      responses:
+        "200":
+          description: OK
+
+  /offers/{offerId}:
+    put:
+      tags:
+        - offers
+      summary: Обновление предложения об аренде
+      description: Обновляет информацию о переданном предложении
+      responses:
+        "200":
+          description: OK
+
+    delete:
+      tags:
+        - offers
+      summary: Удаление предложения
+      description: Удаляет переданное предложение об аренде
+      responses:
+        "204":
+          description: No Content
+
+  /services:
+    post:
+      tags:
+        - services
+      summary: Создание нового типа удобства
+      description: Добавляет новый тип удобства
+      responses:
+        "201":
+          description: Created
+
+    get:
+      tags:
+        - services
+      summary: Получение типов удобств
+      description: Возвращает список всех типов удобств
+      responses:
+        "200":
+          description: OK
+
+  /services/{serviceId}:
+    put:
+      tags:
+        - services
+      summary: Обновление типа удобства
+      description: Обновляет переданный тип удобств
+      responses:
+        "200":
+          description: OK
+
+    delete:
+      tags:
+        - services
+      summary: Удаление типа удобств
+      description: Удаляет указанный тип удобств
+      responses:
+        "204":
+          description: No Content
+
+  /types:
+    post:
+      tags:
+        - types
+      summary: Создание нового типа предложения
+      description: Добавляет в коллекцию новый тип предложения
+      responses:
+        "201":
+          description: Created
+
+    get:
+      tags:
+        - types
+      summary: Получение типов предложений
+      description: Возвращает список всех типов предложений
+      responses:
+        "200":
+          description: OK
+
+  /types/{typeId}:
+    put:
+      tags:
+        - types
+      summary: Обновление переданного типа предложения
+      description: Обновляет переданный тип предложения
+      responses:
+        "200":
+          description: OK
+
+    delete:
+      tags:
+        - types
+      summary: Удаление типа предложения
+      description: Удаляет переданный тип предложения
+      responses:
+        "204":
+          description: No Content
