@@ -9,16 +9,16 @@ info:
   version: "1.0.0"
 
 tags:
+  - name: amenities
+    description: Действия с типами удобств.
   - name: comments
     description: Действия с комментариями.
   - name: cities
     description: Действия с городами.
-  - name: offers
-    description: Действия с объявлениями.
-  - name: services
-    description: Действия с типами удобств.
   - name: estates
     description: Действия с типом жилья.
+  - name: offers
+    description: Действия с объявлениями.
   - name: users
     description: Действия с пользователем.
 
@@ -178,15 +178,28 @@ paths:
         "204":
           description: No Content
 
-  /services:
+  /amenities:
     get:
       tags:
-        - services
+        - amenities
       summary: Получение типов удобств
       description: Возвращает список всех типов удобств
       responses:
         "200":
           description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/amenity"
+
+        "404":
+          description: Not found response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorMessage"
 
   /estates:
     get:
@@ -272,6 +285,18 @@ components:
         name:
           type: string
           example: apartment
+
+    amenity:
+      type: object
+
+      properties:
+        id:
+          type: string
+          example: 123qwerty4567890
+
+        name:
+          type: string
+          example: Air conditioning
 
     errorMessage:
       type: object
