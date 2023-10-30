@@ -9,8 +9,6 @@ info:
   version: "1.0.0"
 
 tags:
-  - name: accounts
-    description: Действия с типом пользователя.
   - name: comments
     description: Действия с комментариями.
   - name: cities
@@ -31,9 +29,25 @@ paths:
         - users
       summary: Регистрация пользователя
       description: Регистрирует нового пользователя.
+
+      requestBody:
+        description: Информация для создания нового пользователя.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createUser"
+        required: true
+
       responses:
         "201":
-          description: Created
+          description: Пользователь зарегистрирован. Объект пользователя.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/user"
+
+        "409":
+          description: Пользователь с таким email уже существует.
 
   /users/login:
     post:
@@ -64,44 +78,6 @@ paths:
       responses:
         "201":
           description: Created
-
-  /accounts:
-    post:
-      tags:
-        - accounts
-      summary: Создание нового типа пользователя
-      description: Добавляет в коллекцию новый тип пользователя
-      responses:
-        "201":
-          description: Created
-
-    get:
-      tags:
-        - accounts
-      summary: Получение всех типов пользователя
-      description: Возвращает коллекцию пользователей
-      responses:
-        "200":
-          description: OK
-
-  /accounts/{accountId}:
-    put:
-      tags:
-        - accounts
-      summary: Обновление типа пользователя
-      description: Обновляет указанный тип пользователя
-      responses:
-        "200":
-          description: OK
-
-    delete:
-      tags:
-        - accounts
-      summary: Удаление конкретного типа пользователя
-      description: Удаляет указанный тип пользователя из коллекции
-      responses:
-        "204":
-          description: No Content
 
   /comments:
     post:
@@ -142,42 +118,27 @@ paths:
           description: No Content
 
   /cities:
-    post:
-      tags:
-        - cities
-      summary: Добавление нового города
-      description: Добавляет в коллекцию новый город
-      responses:
-        "201":
-          description: Created
-
     get:
       tags:
         - cities
-      summary: Получение списка всех городов
-      description: Возвращает список всех городов
+      summary: Получение списка городов
+      description: Возвращает список всех доступных городов
       responses:
         "200":
           description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/city"
 
-  /cities/{cityId}:
-    put:
-      tags:
-        - cities
-      summary: Обновление города
-      description: Обновляет информацию о переданном городе
-      responses:
-        "200":
-          description: OK
-
-    delete:
-      tags:
-        - cities
-      summary: Удаление города
-      description: Удаляет указанный город из коллекции
-      responses:
-        "204":
-          description: No Content
+        "404":
+          description: Not found response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorMessage"
 
   /offers:
     post:
@@ -218,15 +179,6 @@ paths:
           description: No Content
 
   /services:
-    post:
-      tags:
-        - services
-      summary: Создание нового типа удобства
-      description: Добавляет новый тип удобства
-      responses:
-        "201":
-          description: Created
-
     get:
       tags:
         - services
@@ -236,35 +188,7 @@ paths:
         "200":
           description: OK
 
-  /services/{serviceId}:
-    put:
-      tags:
-        - services
-      summary: Обновление типа удобства
-      description: Обновляет переданный тип удобств
-      responses:
-        "200":
-          description: OK
-
-    delete:
-      tags:
-        - services
-      summary: Удаление типа удобств
-      description: Удаляет указанный тип удобств
-      responses:
-        "204":
-          description: No Content
-
   /types:
-    post:
-      tags:
-        - types
-      summary: Создание нового типа предложения
-      description: Добавляет в коллекцию новый тип предложения
-      responses:
-        "201":
-          description: Created
-
     get:
       tags:
         - types
@@ -274,21 +198,60 @@ paths:
         "200":
           description: OK
 
-  /types/{typeId}:
-    put:
-      tags:
-        - types
-      summary: Обновление переданного типа предложения
-      description: Обновляет переданный тип предложения
-      responses:
-        "200":
-          description: OK
+components:
+  schemas:
+    createUser:
+      type: object
 
-    delete:
-      tags:
-        - types
-      summary: Удаление типа предложения
-      description: Удаляет переданный тип предложения
-      responses:
-        "204":
-          description: No Content
+      properties:
+        email:
+          type: string
+          example: ivan@gmail.com
+
+        name:
+          type: string
+          example: Ivan
+
+        password:
+          type: string
+          example: 123456
+
+    user:
+      type: object
+
+      properties:
+        id:
+          type: string
+          example: 123qwerty4567890
+
+        email:
+          type: string
+          example: ivan@gmail.com
+
+    city:
+      type: object
+
+      properties:
+        id:
+          type: string
+          example: 123qwerty4567890
+
+        name:
+          type: string
+          example: Amsterdam
+
+        latitude:
+          type: string
+          example: 52.370216
+
+        longitude:
+          type: string
+          example: 4.895168
+
+    errorMessage:
+      type: object
+
+      properties:
+        message:
+          type: string
+          example: Текст ошибки
