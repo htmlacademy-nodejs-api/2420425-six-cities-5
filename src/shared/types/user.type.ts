@@ -4,5 +4,5 @@ export type User = {
   name: string;
   email: string;
   type: UserType;
-  avatarPath: string;
+  avatarPath?: string;
 }

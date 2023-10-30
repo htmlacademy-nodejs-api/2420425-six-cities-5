@@ -55,9 +55,24 @@ paths:
         - users
       summary: Авторизация пользователя
       description: Авторизует пользователя на основе логина и пароля
+      requestBody:
+        description: Информация для авторизации пользователя.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/loginUser"
+        required: true
+
       responses:
         "200":
-          description: OK
+          description: Пользователь авторизован.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/user"
+
+        "401":
+          description: Неправильный логин или пароль пользователя.
 
     get:
       tags:
@@ -75,9 +90,26 @@ paths:
       summary: Загрузить изображение аватара
       description: Загружает изображение аватара пользователя. Изображение
         аватара должно быть в формате `png` или `jpg`.
+
+      requestBody:
+        description: Изображение для аватара.
+        content:
+          "image/jpeg":
+            schema:
+              type: string
+              format: binary
+          "image/png":
+            schema:
+              type: string
+              format: binary
+
       responses:
-        "201":
+        "200":
           description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/avatar"
 
   /comments:
     post:
@@ -242,6 +274,18 @@ components:
           type: string
           example: 123456
 
+    loginUser:
+      type: object
+
+      properties:
+        email:
+          type: string
+          example: ivan@gmail.com
+
+        password:
+          type: string
+          example: 123456
+
     user:
       type: object
 
@@ -305,3 +349,15 @@ components:
         message:
           type: string
           example: Текст ошибки
+
+    avatar:
+      type: object
+
+      properties:
+        id:
+          type: string
+          example: 123qwerty4567890
+        path:
+          type: string
+          example: /images/best-avatar.jpg
+
