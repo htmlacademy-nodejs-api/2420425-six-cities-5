@@ -1,5 +1,5 @@
 import { Types } from 'mongoose';
-import { CityName, Coords, OfferAmenity, OfferType } from '../../../types/index.js';
+import { CityName, Coords, OfferAmenity, Estate } from '../../../types/index.js';
 
 export class CreateOfferDto {
   public title: string;
@@ -11,7 +11,7 @@ export class CreateOfferDto {
   public premium: boolean;
   public favorite: boolean;
   public rate: number;
-  public type: OfferType;
+  public type: Estate;
   public rooms: number;
   public guests: number;
   public price: number;

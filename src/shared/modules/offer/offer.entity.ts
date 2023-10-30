@@ -1,5 +1,5 @@
 import { getModelForClass, prop, defaultClasses, modelOptions, Ref, mongoose } from '@typegoose/typegoose';
-import { CityName, Coords, OfferAmenity, OfferType } from '../../types/index.js';
+import { CityName, Coords, OfferAmenity, Estate } from '../../types/index.js';
 import { UserEntity } from '../user/user.entity.js';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
@@ -39,8 +39,8 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({ required: true, min: 1, max: 5 })
   public rate: number;
 
-  @prop({ required: true, enum: OfferType })
-  public type: OfferType;
+  @prop({ required: true, enum: Estate })
+  public type: Estate;
 
   @prop({ required: true, min: 1, max: 8 })
   public rooms: number;

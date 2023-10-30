@@ -17,7 +17,7 @@ tags:
     description: Действия с объявлениями.
   - name: services
     description: Действия с типами удобств.
-  - name: types
+  - name: estates
     description: Действия с типом жилья.
   - name: users
     description: Действия с пользователем.
@@ -188,15 +188,28 @@ paths:
         "200":
           description: OK
 
-  /types:
+  /estates:
     get:
       tags:
-        - types
+        - estates
       summary: Получение типов предложений
-      description: Возвращает список всех типов предложений
+      description: Возвращает список доступных типов предложений
       responses:
         "200":
           description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/estate"
+
+        "404":
+          description: Not found response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorMessage"
 
 components:
   schemas:
@@ -247,6 +260,18 @@ components:
         longitude:
           type: string
           example: 4.895168
+
+    estate:
+      type: object
+
+      properties:
+        id:
+          type: string
+          example: 123qwerty4567890
+
+        name:
+          type: string
+          example: apartment
 
     errorMessage:
       type: object
