@@ -154,6 +154,14 @@ paths:
         - comments
       summary: Обновление комментария
       description: Обновляет указанный комментарий
+
+      requestBody:
+        description: Данные для обновления комментария.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createComment"
+
       responses:
         "201":
           description: Комментарий был обновлен. Объект обновленного комментария.
@@ -200,18 +208,36 @@ paths:
         - offers
       summary: Создание нового предложения
       description: Добавляет в коллекцию новое предложение об аренде
+      requestBody:
+        description: Информация для создания нового предложения.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createOffer"
+
       responses:
         "201":
-          description: Created
+          description: Предложение было создано. Объект предложения.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/offer"
 
     get:
       tags:
         - offers
       summary: Получение всех предложений об аренде
       description: Возвращает список предложений
+
       responses:
         "200":
-          description: OK
+          description: Массив предложений.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/offer"
 
   /offers/{offerId}:
     put:
@@ -219,9 +245,21 @@ paths:
         - offers
       summary: Обновление предложения об аренде
       description: Обновляет информацию о переданном предложении
+
+      requestBody:
+        description: Данные для обновления комментария.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createOffer"
+
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Предложение было обновлено. Объект обновленного предложения.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/offer"
 
     delete:
       tags:
@@ -408,3 +446,86 @@ components:
         rating:
           type: integer
           example: 5
+
+    preview:
+      type: string
+      example: path/to/preview
+
+    photo:
+      type: string
+      example: path/to/photo
+
+    createOffer:
+      type: object
+
+      properties:
+        title:
+          type: string
+          example: Сдам апартаменты в центре города.
+
+        description:
+          type: string
+          example: Без посредников и комиссий. Квартира находится в центре города, рядом с остановками общественного транспорта
+
+        postDate:
+          type: string
+          format: date-time
+          example: 2023-03-20T09:12:28Z
+
+        city:
+          $ref: "#/components/schemas/city"
+
+        preview:
+          $ref: "#/components/schemas/preview"
+
+        photos:
+          type: array
+          items:
+            $ref: "#/components/schemas/photo"
+
+        premium:
+          type: boolean
+          example: false
+
+        favorite:
+          type: boolean
+          example: true
+
+        rate:
+          type: integer
+          example: 3
+
+        type:
+          $ref: "#/components/schemas/estate"
+
+        rooms:
+          type: integer
+          example: 3
+
+        guests:
+          type: integer
+          example: 2
+
+        price:
+          type: integer
+          example: 4000
+
+        amenities:
+          type: array
+          items:
+            $ref: "#/components/schemas/amenity"
+        user:
+          $ref: "#/components/schemas/user"
+
+        commentsCount:
+          type: integer
+          example: 2
+
+    offer:
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: string
+              example: 123qwerty4567890
+        - $ref: "#/components/schemas/createUser"
