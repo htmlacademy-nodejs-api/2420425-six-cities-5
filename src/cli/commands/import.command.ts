@@ -1,14 +1,18 @@
 import { TSVFileReader } from '../../shared/libs/file-reader/index.js';
-import { Command } from './command.interface.js';
 import { createOffer, getErrorMessage, getMongoURI } from '../../shared/helpers/index.js';
 import { DefaultUserService, UserModel, UserService } from '../../shared/modules/user/index.js';
 import { DatabaseClient, MongoDatabaseClient } from '../../shared/libs/database-client/index.js';
 import { ConsoleLogger, Logger } from '../../shared/libs/logger/index.js';
 import { DefaultOfferService, OfferModel, OfferService } from '../../shared/modules/offer/index.js';
 import { DEFAULT_DB_PORT, DEFAULT_USER_PASSWORD } from './command.constant.js';
+import { Command } from './command.interface.js';
 import { Offer } from '../../shared/types/index.js';
+import { AmenityService } from '../../shared/modules/amenity/amenity-service.interface.js';
+import { DefaultAmenityService } from '../../shared/modules/amenity/default-amenity.service.js';
+import { AmenityModel } from '../../shared/modules/amenity/amenity.entity.js';
 
 export class ImportCommand implements Command {
+  private amenityService: AmenityService;
   private userService: UserService;
   private offerService: OfferService;
   private databaseClient: DatabaseClient;
@@ -20,6 +24,7 @@ export class ImportCommand implements Command {
     this.onCompleteImport = this.onCompleteImport.bind(this);
 
     this.logger = new ConsoleLogger();
+    this.amenityService = new DefaultAmenityService(this.logger, AmenityModel);
     this.offerService = new DefaultOfferService(this.logger, OfferModel);
     this.userService = new DefaultUserService(this.logger, UserModel);
     this.databaseClient = new MongoDatabaseClient(this.logger);
@@ -45,9 +50,17 @@ export class ImportCommand implements Command {
       ...offer.user, password: DEFAULT_USER_PASSWORD
     }, this.salt);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { user, ...rest } = offer;
+    const { user, amenities, ...rest } = offer;
 
-    await this.offerService.create({ ...rest, userId: offerUser.id, });
+    const offerAmenities = await Promise.all(offer.amenities.map((amenity) => (
+      this.amenityService.findOrCreate({ name: amenity })
+    )));
+
+    await this.offerService.create({
+      ...rest,
+      userId: offerUser.id,
+      amenities: offerAmenities.map((amenity) => amenity.id),
+    });
   }
 
   /**

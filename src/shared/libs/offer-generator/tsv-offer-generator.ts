@@ -26,14 +26,14 @@ export class TSVOfferGenerator implements OfferGenerator {
     const preview = getRandomItem(this.mockData.previews);
     const price = generateRandomValue(MIN_PRICE, MAX_PRICE);
     const userType = getRandomItem(Object.keys(UserType));
-    const city = getRandomItem(Object.keys(CityName) as CityName[]);
+    const city = getRandomItem(Object.values(CityName) as CityName[]);
     const premium = getRandomItem([true, false]);
     const favorite = getRandomItem([true, false]);
     const rooms = generateRandomValue(FIRST_WEEK_DAY, LAST_WEEK_DAY);
     const rate = generateRandomValue(MIN_RATE, MAX_RATE);
-    const offerType = getRandomItem(Object.keys(Estate));
+    const type = getRandomItem(Object.keys(Estate));
     const guests = generateRandomValue(FIRST_WEEK_DAY, LAST_WEEK_DAY);
-    const amenities = getRandomItems(Object.keys(Amenity));
+    const amenities = getRandomItems(Object.values(Amenity));
     const coords = CITIES[city];
 
     const postDate = dayjs()
@@ -54,7 +54,7 @@ export class TSVOfferGenerator implements OfferGenerator {
       premium,
       favorite,
       rate,
-      offerType,
+      type,
       rooms,
       guests,
       price,

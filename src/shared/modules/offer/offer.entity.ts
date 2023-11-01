@@ -1,6 +1,7 @@
 import { getModelForClass, prop, defaultClasses, modelOptions, Ref, mongoose } from '@typegoose/typegoose';
-import { CityName, Coords, Amenity, Estate } from '../../types/index.js';
-import { UserEntity } from '../user/user.entity.js';
+import { CityName, Coords, Estate } from '../../types/index.js';
+import { UserEntity } from '../user/index.js';
+import { AmenityEntity } from '../amenity/index.js';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export interface OfferEntity extends defaultClasses.Base { }
@@ -51,8 +52,12 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({ required: true, min: 100, max: 100000 })
   public price: number;
 
-  @prop({ required: true, type: String, default: [] })
-  public amenities: mongoose.Types.Array<Amenity>;
+  @prop({
+    ref: AmenityEntity,
+    required: true,
+    default: [],
+  })
+  public amenities: Ref<AmenityEntity>[];
 
   @prop({
     ref: UserEntity,
