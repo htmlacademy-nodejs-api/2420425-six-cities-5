@@ -9,7 +9,7 @@ export function createAmenityContainer() {
   const amenityContainer = new Container();
 
   amenityContainer.bind<AmenityService>(Component.AmenityService).to(DefaultAmenityService);
-  amenityContainer.bind<types.ModelType<AmenityEntity>>(Component.OfferModel).toConstantValue(AmenityModel);
+  amenityContainer.bind<types.ModelType<AmenityEntity>>(Component.AmenityModel).toConstantValue(AmenityModel);
 
   return amenityContainer;
 }
