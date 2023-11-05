@@ -9,4 +9,6 @@ export enum Component {
   OfferService = 'OfferService',
   AmenityModel = 'AmenityModel',
   AmenityService = 'AmenityService',
+  CommentService = 'CommentService',
+  CommentModel = 'CommentModel',
 }
