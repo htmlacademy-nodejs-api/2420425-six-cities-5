@@ -2,10 +2,11 @@ import { inject, injectable } from 'inversify';
 import { DocumentType, types } from '@typegoose/typegoose';
 import { Component } from '../../types/component.enum.js';
 import { Logger } from '../../libs/logger/index.js';
-import { Amenity } from '../../types/index.js';
+import { Amenity, SortType } from '../../types/index.js';
 import { AmenityEntity } from './amenity.entity.js';
 import { AmenityService } from './amenity-service.interface.js';
 import { CreateAmenityDto } from './dto/create-amenity.dto.js';
+import { MAX_AMENITIES_COUNT } from './amenity.constant.js';
 
 @injectable()
 export class DefaultAmenityService implements AmenityService {
@@ -53,6 +54,13 @@ export class DefaultAmenityService implements AmenityService {
             as: 'offers'
           },
         },
+        {
+          $addFields:
+            { id: { $toString: '$_id' }, offerCount: { $size: '$offers' } }
+        },
+        { $unset: 'offers' },
+        { $limit: MAX_AMENITIES_COUNT },
+        { $sort: { offerCount: SortType.Down } }
       ]).exec();
   }
 }
