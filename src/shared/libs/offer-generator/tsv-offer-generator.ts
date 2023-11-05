@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { OfferGenerator } from './offer-generator.interface.js';
-import { CityName, MockServerData, OfferAmenity, OfferType, UserType } from '../../types/index.js';
+import { CityName, MockServerData, Amenity, Estate, UserType } from '../../types/index.js';
 import { generateRandomValue, getRandomItem, getRandomItems } from '../../helpers/index.js';
 import { CITIES } from '../../constants/coords.js';
 
@@ -26,14 +26,14 @@ export class TSVOfferGenerator implements OfferGenerator {
     const preview = getRandomItem(this.mockData.previews);
     const price = generateRandomValue(MIN_PRICE, MAX_PRICE);
     const userType = getRandomItem(Object.keys(UserType));
-    const city = getRandomItem(Object.keys(CityName) as CityName[]);
+    const city = getRandomItem(Object.values(CityName) as CityName[]);
     const premium = getRandomItem([true, false]);
     const favorite = getRandomItem([true, false]);
     const rooms = generateRandomValue(FIRST_WEEK_DAY, LAST_WEEK_DAY);
     const rate = generateRandomValue(MIN_RATE, MAX_RATE);
-    const offerType = getRandomItem(Object.keys(OfferType));
+    const type = getRandomItem(Object.keys(Estate));
     const guests = generateRandomValue(FIRST_WEEK_DAY, LAST_WEEK_DAY);
-    const services = getRandomItems(Object.keys(OfferAmenity));
+    const amenities = getRandomItems(Object.values(Amenity));
     const coords = CITIES[city];
 
     const postDate = dayjs()
@@ -54,11 +54,11 @@ export class TSVOfferGenerator implements OfferGenerator {
       premium,
       favorite,
       rate,
-      offerType,
+      type,
       rooms,
       guests,
       price,
-      services: services.join(';'),
+      amenities: amenities.join(';'),
       coords: Object.values(coords).join(','),
     };
 

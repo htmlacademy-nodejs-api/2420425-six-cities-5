@@ -1,4 +1,4 @@
-import { CityName, Offer, OfferAmenity, OfferType, User, UserType } from '../types/index.js';
+import { CityName, Offer, Amenity, Estate, User, UserType } from '../types/index.js';
 
 export function createOffer(offerData: string): Offer {
   const [
@@ -19,7 +19,7 @@ export function createOffer(offerData: string): Offer {
     rooms,
     guests,
     price,
-    services,
+    amenities,
     coords,
   ] = offerData.replace('\n', '').split('\t');
 
@@ -42,11 +42,11 @@ export function createOffer(offerData: string): Offer {
     premium: premium === 'false',
     favorite: favorite === 'false',
     rate: Number(rate),
-    type: OfferType[offerType as keyof typeof OfferType],
+    type: Estate[offerType as keyof typeof Estate],
     rooms: Number(rooms),
     guests: Number(guests),
     price: Number.parseInt(price, 10),
-    services: services.split(';') as OfferAmenity[],
+    amenities: amenities.split(';') as Amenity[],
     user: user,
     coords: {
       latitude,

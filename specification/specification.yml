@@ -9,18 +9,16 @@ info:
   version: "1.0.0"
 
 tags:
-  - name: accounts
-    description: Действия с типом пользователя.
+  - name: amenities
+    description: Действия с типами удобств.
   - name: comments
     description: Действия с комментариями.
   - name: cities
     description: Действия с городами.
+  - name: estates
+    description: Действия с типом жилья.
   - name: offers
     description: Действия с объявлениями.
-  - name: services
-    description: Действия с типами удобств.
-  - name: types
-    description: Действия с типом жилья.
   - name: users
     description: Действия с пользователем.
 
@@ -31,9 +29,25 @@ paths:
         - users
       summary: Регистрация пользователя
       description: Регистрирует нового пользователя.
+
+      requestBody:
+        description: Информация для создания нового пользователя.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createUser"
+        required: true
+
       responses:
         "201":
-          description: Created
+          description: Пользователь зарегистрирован. Объект пользователя.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/user"
+
+        "409":
+          description: Пользователь с таким email уже существует.
 
   /users/login:
     post:
@@ -41,9 +55,24 @@ paths:
         - users
       summary: Авторизация пользователя
       description: Авторизует пользователя на основе логина и пароля
+      requestBody:
+        description: Информация для авторизации пользователя.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/loginUser"
+        required: true
+
       responses:
         "200":
-          description: OK
+          description: Пользователь авторизован.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/user"
+
+        "401":
+          description: Неправильный логин или пароль пользователя.
 
     get:
       tags:
@@ -61,47 +90,26 @@ paths:
       summary: Загрузить изображение аватара
       description: Загружает изображение аватара пользователя. Изображение
         аватара должно быть в формате `png` или `jpg`.
-      responses:
-        "201":
-          description: Created
 
-  /accounts:
-    post:
-      tags:
-        - accounts
-      summary: Создание нового типа пользователя
-      description: Добавляет в коллекцию новый тип пользователя
-      responses:
-        "201":
-          description: Created
+      requestBody:
+        description: Изображение для аватара.
+        content:
+          "image/jpeg":
+            schema:
+              type: string
+              format: binary
+          "image/png":
+            schema:
+              type: string
+              format: binary
 
-    get:
-      tags:
-        - accounts
-      summary: Получение всех типов пользователя
-      description: Возвращает коллекцию пользователей
       responses:
         "200":
-          description: OK
-
-  /accounts/{accountId}:
-    put:
-      tags:
-        - accounts
-      summary: Обновление типа пользователя
-      description: Обновляет указанный тип пользователя
-      responses:
-        "200":
-          description: OK
-
-    delete:
-      tags:
-        - accounts
-      summary: Удаление конкретного типа пользователя
-      description: Удаляет указанный тип пользователя из коллекции
-      responses:
-        "204":
-          description: No Content
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/avatar"
 
   /comments:
     post:
@@ -109,9 +117,21 @@ paths:
         - comments
       summary: Создание нового комментария
       description: Добавляет новый комментарий
+      requestBody:
+        description: Информация для создания нового пользователя.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createComment"
+        required: true
+
       responses:
         "201":
-          description: Created
+          description: Комментарий был создан. Объект комментария.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/comment"
 
     get:
       tags:
@@ -121,6 +141,12 @@ paths:
       responses:
         "200":
           description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/comment"
 
   /comments/{commentId}:
     put:
@@ -128,9 +154,21 @@ paths:
         - comments
       summary: Обновление комментария
       description: Обновляет указанный комментарий
+
+      requestBody:
+        description: Данные для обновления комментария.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createComment"
+
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Комментарий был обновлен. Объект обновленного комментария.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/comment"
 
     delete:
       tags:
@@ -142,42 +180,27 @@ paths:
           description: No Content
 
   /cities:
-    post:
-      tags:
-        - cities
-      summary: Добавление нового города
-      description: Добавляет в коллекцию новый город
-      responses:
-        "201":
-          description: Created
-
     get:
       tags:
         - cities
-      summary: Получение списка всех городов
-      description: Возвращает список всех городов
+      summary: Получение списка городов
+      description: Возвращает список всех доступных городов
       responses:
         "200":
           description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/city"
 
-  /cities/{cityId}:
-    put:
-      tags:
-        - cities
-      summary: Обновление города
-      description: Обновляет информацию о переданном городе
-      responses:
-        "200":
-          description: OK
-
-    delete:
-      tags:
-        - cities
-      summary: Удаление города
-      description: Удаляет указанный город из коллекции
-      responses:
-        "204":
-          description: No Content
+        "404":
+          description: Not found response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorMessage"
 
   /offers:
     post:
@@ -185,18 +208,36 @@ paths:
         - offers
       summary: Создание нового предложения
       description: Добавляет в коллекцию новое предложение об аренде
+      requestBody:
+        description: Информация для создания нового предложения.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createOffer"
+
       responses:
         "201":
-          description: Created
+          description: Предложение было создано. Объект предложения.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/offer"
 
     get:
       tags:
         - offers
       summary: Получение всех предложений об аренде
       description: Возвращает список предложений
+
       responses:
         "200":
-          description: OK
+          description: Массив предложений.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/offer"
 
   /offers/{offerId}:
     put:
@@ -204,9 +245,21 @@ paths:
         - offers
       summary: Обновление предложения об аренде
       description: Обновляет информацию о переданном предложении
+
+      requestBody:
+        description: Данные для обновления комментария.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createOffer"
+
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Предложение было обновлено. Объект обновленного предложения.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/offer"
 
     delete:
       tags:
@@ -217,78 +270,262 @@ paths:
         "204":
           description: No Content
 
-  /services:
-    post:
-      tags:
-        - services
-      summary: Создание нового типа удобства
-      description: Добавляет новый тип удобства
-      responses:
-        "201":
-          description: Created
-
+  /amenities:
     get:
       tags:
-        - services
+        - amenities
       summary: Получение типов удобств
       description: Возвращает список всех типов удобств
       responses:
         "200":
           description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/amenity"
 
-  /services/{serviceId}:
-    put:
-      tags:
-        - services
-      summary: Обновление типа удобства
-      description: Обновляет переданный тип удобств
-      responses:
-        "200":
-          description: OK
+        "404":
+          description: Not found response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorMessage"
 
-    delete:
-      tags:
-        - services
-      summary: Удаление типа удобств
-      description: Удаляет указанный тип удобств
-      responses:
-        "204":
-          description: No Content
-
-  /types:
-    post:
-      tags:
-        - types
-      summary: Создание нового типа предложения
-      description: Добавляет в коллекцию новый тип предложения
-      responses:
-        "201":
-          description: Created
-
+  /estates:
     get:
       tags:
-        - types
+        - estates
       summary: Получение типов предложений
-      description: Возвращает список всех типов предложений
+      description: Возвращает список доступных типов предложений
       responses:
         "200":
           description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/estate"
 
-  /types/{typeId}:
-    put:
-      tags:
-        - types
-      summary: Обновление переданного типа предложения
-      description: Обновляет переданный тип предложения
-      responses:
-        "200":
-          description: OK
+        "404":
+          description: Not found response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorMessage"
 
-    delete:
-      tags:
-        - types
-      summary: Удаление типа предложения
-      description: Удаляет переданный тип предложения
-      responses:
-        "204":
-          description: No Content
+components:
+  schemas:
+    createUser:
+      type: object
+
+      properties:
+        email:
+          type: string
+          example: ivan@gmail.com
+
+        name:
+          type: string
+          example: Ivan
+
+        password:
+          type: string
+          example: 123456
+
+    loginUser:
+      type: object
+
+      properties:
+        email:
+          type: string
+          example: ivan@gmail.com
+
+        password:
+          type: string
+          example: 123456
+
+    user:
+      type: object
+
+      properties:
+        id:
+          type: string
+          example: 123qwerty4567890
+
+        email:
+          type: string
+          example: ivan@gmail.com
+
+    city:
+      type: object
+
+      properties:
+        id:
+          type: string
+          example: 123qwerty4567890
+
+        name:
+          type: string
+          example: Amsterdam
+
+        latitude:
+          type: string
+          example: 52.370216
+
+        longitude:
+          type: string
+          example: 4.895168
+
+    estate:
+      type: object
+
+      properties:
+        id:
+          type: string
+          example: 123qwerty4567890
+
+        name:
+          type: string
+          example: apartment
+
+    amenity:
+      type: object
+
+      properties:
+        id:
+          type: string
+          example: 123qwerty4567890
+
+        name:
+          type: string
+          example: Air conditioning
+
+    errorMessage:
+      type: object
+
+      properties:
+        message:
+          type: string
+          example: Текст ошибки
+
+    avatar:
+      type: object
+
+      properties:
+        id:
+          type: string
+          example: 123qwerty4567890
+        path:
+          type: string
+          example: /images/best-avatar.jpg
+
+    createComment:
+      type: object
+
+      properties:
+        text:
+          type: string
+          example: Примерный текст комментария
+
+    comment:
+      type: object
+
+      properties:
+        id:
+          type: string
+          example: 123qwerty4567890
+        text:
+          type: string
+          example: Текст комментария
+        date:
+          type: string
+          format: date-time
+          example: 2023-03-20T09:12:28Z
+        rating:
+          type: integer
+          example: 5
+
+    preview:
+      type: string
+      example: path/to/preview
+
+    photo:
+      type: string
+      example: path/to/photo
+
+    createOffer:
+      type: object
+
+      properties:
+        title:
+          type: string
+          example: Сдам апартаменты в центре города.
+
+        description:
+          type: string
+          example: Без посредников и комиссий. Квартира находится в центре города, рядом с остановками общественного транспорта
+
+        postDate:
+          type: string
+          format: date-time
+          example: 2023-03-20T09:12:28Z
+
+        city:
+          $ref: "#/components/schemas/city"
+
+        preview:
+          $ref: "#/components/schemas/preview"
+
+        photos:
+          type: array
+          items:
+            $ref: "#/components/schemas/photo"
+
+        premium:
+          type: boolean
+          example: false
+
+        favorite:
+          type: boolean
+          example: true
+
+        rate:
+          type: integer
+          example: 3
+
+        type:
+          $ref: "#/components/schemas/estate"
+
+        rooms:
+          type: integer
+          example: 3
+
+        guests:
+          type: integer
+          example: 2
+
+        price:
+          type: integer
+          example: 4000
+
+        amenities:
+          type: array
+          items:
+            $ref: "#/components/schemas/amenity"
+        user:
+          $ref: "#/components/schemas/user"
+
+        commentsCount:
+          type: integer
+          example: 2
+
+    offer:
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: string
+              example: 123qwerty4567890
+        - $ref: "#/components/schemas/createUser"

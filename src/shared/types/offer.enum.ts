@@ -1,11 +1,11 @@
-export enum OfferType {
+export enum Estate {
   Apartment = 'apartment',
   House = 'house',
   Room = 'room',
   Hotel = 'hotel',
 }
 
-export enum OfferAmenity {
+export enum Amenity {
   AirConditioning = 'Air conditioning',
   BabySeat = 'Baby seat',
   Breakfast = 'Breakfast',

@@ -1,5 +1,8 @@
 import { CityName, Coords } from '../types/index.js';
 
+/**
+ * Используется для генерации объявлений
+ */
 export const CITIES: { [Key in CityName]: Coords } = {
   [CityName.Amsterdam]: { latitude: '52.370216', longitude: '4.895168' },
   [CityName.Brussels]: { latitude: '50.846557', longitude: '4.351697' },
