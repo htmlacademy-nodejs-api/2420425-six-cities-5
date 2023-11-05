@@ -1,4 +1,4 @@
-import { inject } from 'inversify';
+import { inject, injectable } from 'inversify';
 import { DocumentType, types } from '@typegoose/typegoose';
 import { Component } from '../../types/component.enum.js';
 import { Logger } from '../../libs/logger/index.js';
@@ -7,6 +7,7 @@ import { AmenityEntity } from './amenity.entity.js';
 import { AmenityService } from './amenity-service.interface.js';
 import { CreateAmenityDto } from './dto/create-amenity.dto.js';
 
+@injectable()
 export class DefaultAmenityService implements AmenityService {
   constructor(
     @inject(Component.Logger) private readonly logger: Logger,
@@ -24,7 +25,7 @@ export class DefaultAmenityService implements AmenityService {
     return this.amenityModel.findOne({ name });
   }
 
-  public async findByAmenityId(amenityId: string): Promise<DocumentType<AmenityEntity> | null> {
+  public async findById(amenityId: string): Promise<DocumentType<AmenityEntity> | null> {
     return this.amenityModel.findById(amenityId);
   }
 

@@ -6,7 +6,7 @@ import { Amenity } from '../../types/offer.enum.js';
 export interface AmenityService {
   create(dto: CreateAmenityDto): Promise<DocumentType<AmenityEntity>>;
   findOrCreate(dto: CreateAmenityDto): Promise<DocumentType<AmenityEntity>>
-  findByAmenityId(amenityId: string): Promise<DocumentType<AmenityEntity> | null>
+  findById(amenityId: string): Promise<DocumentType<AmenityEntity> | null>
   findByAmenityName(name: Amenity): Promise<DocumentType<AmenityEntity> | null>
   find(): Promise<DocumentType<AmenityEntity>[]>
 }
