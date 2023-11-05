@@ -32,7 +32,7 @@ export class DefaultAmenityService implements AmenityService {
   public async findOrCreate(dto: CreateAmenityDto): Promise<DocumentType<AmenityEntity>> {
     const amenity = await this.findByAmenityName(dto.name);
 
-    if(amenity) {
+    if (amenity) {
       return amenity;
     }
 
@@ -40,6 +40,19 @@ export class DefaultAmenityService implements AmenityService {
   }
 
   public async find(): Promise<DocumentType<AmenityEntity>[]> {
-    return this.amenityModel.find();
+    return this.amenityModel
+      .aggregate([
+        {
+          $lookup: {
+            from: 'offers',
+            let: { amenityId: '$_id' },
+            pipeline: [
+              { $match: { $expr: { $in: ['$$amenityId', '$amenities'] } } },
+              { $project: { _id: 1 } }
+            ],
+            as: 'offers'
+          },
+        },
+      ]).exec();
   }
 }
