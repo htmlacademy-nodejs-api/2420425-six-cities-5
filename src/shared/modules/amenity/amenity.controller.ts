@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { Request, Response } from 'express';
-import { BaseController, HttpMethod } from '../../libs/rest/index.js';
+import { BaseController, HttpError, HttpMethod } from '../../libs/rest/index.js';
 import { Logger } from '../../libs/logger/index.js';
 import { fillDTO } from '../../helpers/common.js';
 import { Component } from '../../types/index.js';
@@ -37,13 +37,11 @@ export class AmenityController extends BaseController {
     const existCategory = await this.amenityService.findByAmenityName(body.name);
 
     if (existCategory) {
-      const existCategoryError = new Error(`Amenity with name «${body.name}» exists.`);
-      this.send(res,
+      throw new HttpError(
         StatusCodes.UNPROCESSABLE_ENTITY,
-        { error: existCategoryError.message }
+        `Amenity with name «${body.name}» exists.`,
+        'AmenityController'
       );
-
-      return this.logger.error(existCategoryError.message, existCategoryError);
     }
 
     const result = await this.amenityService.create(body);
