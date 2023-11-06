@@ -3,11 +3,13 @@ import { Request, Response } from 'express';
 import { BaseController, HttpMethod } from '../../libs/rest/index.js';
 import { Logger } from '../../libs/logger/index.js';
 import { Component } from '../../types/index.js';
+import { AmenityService } from './amenity-service.interface.js';
 
 @injectable()
 export class AmenityController extends BaseController {
   constructor(
     @inject(Component.Logger) protected readonly logger: Logger,
+    @inject(Component.AmenityService) private readonly amenityService: AmenityService,
   ) {
     super(logger);
 
@@ -17,11 +19,12 @@ export class AmenityController extends BaseController {
     this.addRoute({ path: '/', method: HttpMethod.Post, handler: this.create });
   }
 
-  public index(req: Request, res: Response): void {
-    // Код обработчика
+  public async index(_req: Request, res: Response): Promise<void> {
+    const amenities = await this.amenityService.find();
+    this.ok(res, amenities);
   }
 
-  public create(req: Request, res: Response): void {
+  public create(_req: Request, _res: Response): void {
     // Код обработчика
   }
 }
