@@ -5,6 +5,7 @@ export enum Component {
   DatabaseClient = 'DatabaseClient',
   UserService = 'UserService',
   UserModel = 'UserModel',
+  UserController = 'UserController',
   OfferModel = 'OfferModel',
   OfferService = 'OfferService',
   AmenityModel = 'AmenityModel',

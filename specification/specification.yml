@@ -330,6 +330,10 @@ components:
           type: string
           example: Ivan
 
+        avatarPath:
+          type: string
+          example: avatar.png
+
         password:
           type: string
           example: 123456

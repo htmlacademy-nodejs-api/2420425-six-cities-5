@@ -1,4 +1,4 @@
-import { CityName, Offer, Amenity, Estate, User, UserType } from '../types/index.js';
+import { CityName, Offer, Amenity, Estate, UserType } from '../types/index.js';
 
 export function createOffer(offerData: string): Offer {
   const [
@@ -23,7 +23,7 @@ export function createOffer(offerData: string): Offer {
     coords,
   ] = offerData.replace('\n', '').split('\t');
 
-  const user: User = {
+  const user = {
     name,
     email,
     avatarPath,
