@@ -9,6 +9,7 @@ import { Component } from '../../types/index.js';
 import { CreateUserDto } from './dto/create-user.dto.js';
 import { UserService } from './user-service.interface.js';
 import { UserRdo } from './rdo/user.rdo.js';
+import { LoginUserDto } from './dto/login-user.dto.js';
 
 @injectable()
 export class UserController extends BaseController {
@@ -21,6 +22,28 @@ export class UserController extends BaseController {
     this.logger.info('Register routes for UserController…');
 
     this.addRoute({ path: '/register', method: HttpMethod.Post, handler: this.create });
+    this.addRoute({ path: '/login', method: HttpMethod.Post, handler: this.login });
+  }
+
+  public async login(
+    { body }: TypedRequst<LoginUserDto>,
+    _res: Response,
+  ): Promise<void> {
+    const existsUser = await this.userService.findByEmail(body.email);
+
+    if (!existsUser) {
+      throw new HttpError(
+        StatusCodes.UNAUTHORIZED,
+        `User with email ${body.email} not found.`,
+        'UserController',
+      );
+    }
+
+    throw new HttpError(
+      StatusCodes.NOT_IMPLEMENTED,
+      'Not implemented',
+      'UserController',
+    );
   }
 
   public async create(

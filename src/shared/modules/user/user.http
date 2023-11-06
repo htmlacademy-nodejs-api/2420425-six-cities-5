@@ -12,3 +12,16 @@ Content-Type: application/json
 }
 
 ###
+
+
+## Авторизовать пользователя
+
+POST http://localhost:3003/users/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "ivanov@gmail.com",
+  "password": "secret"
+}
+
+###
