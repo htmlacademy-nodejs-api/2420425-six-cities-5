@@ -6,6 +6,8 @@ import { fillDTO } from '../../helpers/common.js';
 import { Component } from '../../types/index.js';
 import { AmenityService } from './amenity-service.interface.js';
 import { AmenityRdo } from './rdo/amenity.rdo.js';
+import { StatusCodes } from 'http-status-codes';
+import { CreateAmenityDto } from './index.js';
 
 @injectable()
 export class AmenityController extends BaseController {
@@ -27,7 +29,24 @@ export class AmenityController extends BaseController {
     this.ok(res, responseData);
   }
 
-  public create(_req: Request, _res: Response): void {
-    // Код обработчика
+  public async create(
+    { body }: Request<Record<string, unknown>, Record<string, unknown>, CreateAmenityDto>,
+    res: Response
+  ): Promise<void> {
+
+    const existCategory = await this.amenityService.findByAmenityName(body.name);
+
+    if (existCategory) {
+      const existCategoryError = new Error(`Amenity with name «${body.name}» exists.`);
+      this.send(res,
+        StatusCodes.UNPROCESSABLE_ENTITY,
+        { error: existCategoryError.message }
+      );
+
+      return this.logger.error(existCategoryError.message, existCategoryError);
+    }
+
+    const result = await this.amenityService.create(body);
+    this.created(res, fillDTO(AmenityRdo, result));
   }
 }
