@@ -59,6 +59,9 @@ export class TSVOfferGenerator implements OfferGenerator {
       guests,
       price,
       amenities: amenities.join(';'),
+      /**
+       * TODO - вынести в city
+       */
       coords: Object.values(coords).join(','),
     };
 

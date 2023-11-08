@@ -1,10 +1,13 @@
 import { Types } from 'mongoose';
-import { CityName, Coords, Estate } from '../../../types/index.js';
+import { CityName, Estate } from '../../../types/index.js';
 
 export class CreateOfferDto {
   public title: string;
   public description: string;
   public postDate: Date;
+  /**
+   * TODO - Исправить на объект с coords
+   */
   public city: CityName;
   public preview: string;
   public photos: string[];
@@ -17,5 +20,4 @@ export class CreateOfferDto {
   public price: number;
   public amenities: Types.ObjectId[];
   public userId: Types.ObjectId;
-  public coords: Coords;
 }

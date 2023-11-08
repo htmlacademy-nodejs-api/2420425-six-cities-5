@@ -16,7 +16,7 @@ export class OfferRdo {
   public postDate: string;
 
   /**
-   * TODO - переделать на объект с lat и lon
+   * TODO - Исправить на объект с coords
    */
   @Expose()
   public city: string;
