@@ -3,12 +3,10 @@ GET http://localhost:3003/offers/6542c25625a9a0acd48f495d HTTP/1.1
 
 ###
 
-
 ## Получить список объявлений
 GET http://localhost:3003/offers HTTP/1.1
 
 ###
-
 
 ## Создать новое объявление
 POST http://localhost:3003/offers HTTP/1.1
@@ -31,5 +29,11 @@ Content-Type: application/json
   "amenities": ["6542bb89c3748f810764c952", "6542bb89c3748f810764c954"],
   "userId": "6542c25525a9a0acd48f4956"
 }
+
+###
+
+## Удалить объявление по идентификатору
+
+DELETE http://localhost:3003/offers/654be3aef0be78b9371e2b84 HTTP/1.1
 
 ###
