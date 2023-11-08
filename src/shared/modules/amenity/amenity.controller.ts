@@ -1,19 +1,23 @@
+import { StatusCodes } from 'http-status-codes';
 import { inject, injectable } from 'inversify';
 import { Request, Response } from 'express';
-import { BaseController, HttpError, HttpMethod } from '../../libs/rest/index.js';
+import { BaseController, HttpError, HttpMethod, RequestQuery } from '../../libs/rest/index.js';
 import { Logger } from '../../libs/logger/index.js';
 import { fillDTO } from '../../helpers/common.js';
 import { Component } from '../../types/index.js';
 import { AmenityService } from './amenity-service.interface.js';
+import { OfferService } from '../offer/index.js';
 import { AmenityRdo } from './rdo/amenity.rdo.js';
-import { StatusCodes } from 'http-status-codes';
-import { CreateAmenityDto } from './index.js';
+import { CreateAmenityDto } from './dto/create-amenity.dto.js';
+import { ParamAmenityId } from './types/index.js';
+import { OfferRdo } from '../offer/rdo/offer.rdo.js';
 
 @injectable()
 export class AmenityController extends BaseController {
   constructor(
     @inject(Component.Logger) protected readonly logger: Logger,
     @inject(Component.AmenityService) private readonly amenityService: AmenityService,
+    @inject(Component.OfferService) private readonly offerService: OfferService,
   ) {
     super(logger);
 
@@ -21,6 +25,7 @@ export class AmenityController extends BaseController {
 
     this.addRoute({ path: '/', method: HttpMethod.Get, handler: this.index });
     this.addRoute({ path: '/', method: HttpMethod.Post, handler: this.create });
+    this.addRoute({ path: '/:amenityId/offers', method: HttpMethod.Get, handler: this.getOffersWithAmenity });
   }
 
   public async index(_req: Request, res: Response): Promise<void> {
@@ -46,5 +51,13 @@ export class AmenityController extends BaseController {
 
     const result = await this.amenityService.create(body);
     this.created(res, fillDTO(AmenityRdo, result));
+  }
+
+  public async getOffersWithAmenity(
+    { params, query } : Request<ParamAmenityId, unknown, unknown, RequestQuery>,
+    res: Response,
+  ):Promise<void> {
+    const offers = await this.offerService.findByAmenityId(params.amenityId, query.limit);
+    this.ok(res, fillDTO(OfferRdo, offers));
   }
 }

@@ -1,17 +1,23 @@
 # Категории
-## Получить список категорий
+## Получить список удобств
 GET http://localhost:3003/amenities HTTP/1.1
 Content-Type: application/json
 
 ###
 
 
-## Добавить новую категорию
+## Добавить новый тип удобств
 POST http://localhost:3003/amenities HTTP/1.1
 Content-Type: application/json
 
 {
   "name": "тестовое имя"
 }
+
+###
+
+## Список объявлений с определёнными удобствами
+
+GET http://localhost:3003/amenities/6542c25525a9a0acd48f495b/offers?limit=2 HTTP/1.1
 
 ###
