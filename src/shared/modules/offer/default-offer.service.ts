@@ -62,6 +62,13 @@ export class DefaultOfferService implements OfferService {
   }
 
   public async updateById(offerId: string, dto: UpdateOfferDto): Promise<DocumentType<OfferEntity> | null> {
+    if (dto.amenities) {
+      const foundCategories = await this.amenityModel.find({ _id: { $in: dto.amenities }});
+      if (foundCategories.length !== dto.amenities.length) {
+        throw new HttpError(StatusCodes.BAD_REQUEST, 'Some amenities not exists', 'DefaultOfferService');
+      }
+    }
+
     return this.offerModel
       .findByIdAndUpdate(offerId, dto, { new: true })
       .populate(['userId', 'amenities'])
