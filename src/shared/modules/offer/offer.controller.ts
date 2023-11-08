@@ -1,11 +1,13 @@
+import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { inject, injectable } from 'inversify';
 import { BaseController, HttpError, HttpMethod } from '../../libs/rest/index.js';
 import { Component } from '../../types/index.js';
+import { fillDTO } from '../../helpers/index.js';
 import { Logger } from '../../libs/logger/index.js';
-import { Request, Response } from 'express';
 import { OfferService } from './offer-service.interface.js';
 import { ParamOfferId } from './types/index.js';
+import { OfferRdo } from './rdo/offer.rdo.js';
 
 @injectable()
 export class OfferController extends BaseController {
@@ -31,6 +33,6 @@ export class OfferController extends BaseController {
       );
     }
 
-    this.ok(res, offer);
+    this.ok(res, fillDTO(OfferRdo, offer));
   }
 }
