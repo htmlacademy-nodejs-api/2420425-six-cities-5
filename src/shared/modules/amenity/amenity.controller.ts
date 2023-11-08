@@ -1,7 +1,13 @@
 import { StatusCodes } from 'http-status-codes';
 import { inject, injectable } from 'inversify';
 import { Request, Response } from 'express';
-import { BaseController, HttpError, HttpMethod, RequestQuery } from '../../libs/rest/index.js';
+import {
+  BaseController,
+  HttpError,
+  HttpMethod,
+  RequestQuery,
+  ValidateObjectIdMiddleware,
+} from '../../libs/rest/index.js';
 import { Logger } from '../../libs/logger/index.js';
 import { fillDTO } from '../../helpers/common.js';
 import { Component } from '../../types/index.js';
@@ -25,7 +31,12 @@ export class AmenityController extends BaseController {
 
     this.addRoute({ path: '/', method: HttpMethod.Get, handler: this.index });
     this.addRoute({ path: '/', method: HttpMethod.Post, handler: this.create });
-    this.addRoute({ path: '/:amenityId/offers', method: HttpMethod.Get, handler: this.getOffersWithAmenity });
+    this.addRoute({
+      path: '/:amenityId/offers',
+      method: HttpMethod.Get,
+      handler: this.getOffersWithAmenity,
+      middlewares: [new ValidateObjectIdMiddleware('amenityId')],
+    });
   }
 
   public async index(_req: Request, res: Response): Promise<void> {
@@ -54,9 +65,9 @@ export class AmenityController extends BaseController {
   }
 
   public async getOffersWithAmenity(
-    { params, query } : Request<ParamAmenityId, unknown, unknown, RequestQuery>,
+    { params, query }: Request<ParamAmenityId, unknown, unknown, RequestQuery>,
     res: Response,
-  ):Promise<void> {
+  ): Promise<void> {
     const offers = await this.offerService.findByAmenityId(params.amenityId, query.limit);
     this.ok(res, fillDTO(OfferRdo, offers));
   }
