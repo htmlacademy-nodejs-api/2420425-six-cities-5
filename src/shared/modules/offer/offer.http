@@ -2,3 +2,8 @@
 GET http://localhost:3003/offers/6542c25625a9a0acd48f495d HTTP/1.1
 
 ###
+
+## Получить список объявлений
+GET http://localhost:3003/offers HTTP/1.1
+
+###
