@@ -13,7 +13,7 @@ POST http://localhost:3003/offers HTTP/1.1
 Content-Type: application/json
 
 {
-  "title": "Квартиры посуточно",
+  "title": "Супер Квартиры посуточно 22332",
   "description": "На территории дома расположен большой сад с красивыми цветами и деревьями, где можно провести время на свежем воздухе и насладиться тишиной и покоем.",
   "postDate": "2023-05-12T11:56:37.573Z",
   "city": "Dusseldorf",
@@ -34,7 +34,7 @@ Content-Type: application/json
 
 ## Удалить объявление по идентификатору
 
-DELETE http://localhost:3003/offers/654be3aef0be78b9371e2b84 HTTP/1.1
+DELETE http://localhost:3003/offers/654d5274c697b993f3dd8512 HTTP/1.1
 
 ###
 
