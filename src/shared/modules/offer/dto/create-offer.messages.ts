@@ -1,3 +1,5 @@
+import { Estate } from '../../../types/index.js';
+
 export const CreateOfferValidationMessage = {
   title: {
     minLength: 'Minimum title length must be 10',
@@ -32,7 +34,7 @@ export const CreateOfferValidationMessage = {
     maxValue: 'Maximum rate is 5',
   },
   type: {
-    invalid: 'type must be one of these values apartment, house, room or hotel',
+    invalid: `type must be one of these values: ${Object.values(Estate).join(', ')}`,
   },
   rooms: {
     invalidFormat: 'Rooms must be an integer',

@@ -6,6 +6,7 @@ import {
   HttpError,
   HttpMethod,
   RequestQuery,
+  ValidateDtoMiddleware,
   ValidateObjectIdMiddleware,
 } from '../../libs/rest/index.js';
 import { Logger } from '../../libs/logger/index.js';
@@ -30,7 +31,12 @@ export class AmenityController extends BaseController {
     this.logger.info('Register routes for AmenityController…');
 
     this.addRoute({ path: '/', method: HttpMethod.Get, handler: this.index });
-    this.addRoute({ path: '/', method: HttpMethod.Post, handler: this.create });
+    this.addRoute({
+      path: '/',
+      method: HttpMethod.Post,
+      handler: this.create,
+      middlewares: [new ValidateDtoMiddleware(CreateAmenityDto)],
+    });
     this.addRoute({
       path: '/:amenityId/offers',
       method: HttpMethod.Get,
