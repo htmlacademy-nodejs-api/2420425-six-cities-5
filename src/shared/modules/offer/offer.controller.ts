@@ -6,6 +6,7 @@ import {
   HttpError,
   HttpMethod,
   TypedRequst,
+  ValidateDtoMiddleware,
   ValidateObjectIdMiddleware,
 } from '../../libs/rest/index.js';
 import { Component } from '../../types/index.js';
@@ -34,7 +35,13 @@ export class OfferController extends BaseController {
 
     this.logger.info('Register routes for OfferController');
     this.addRoute({ path: '/', method: HttpMethod.Get, handler: this.index });
-    this.addRoute({ path: '/', method: HttpMethod.Post, handler: this.create });
+    this.addRoute({
+      path: '/',
+      method:
+      HttpMethod.Post,
+      handler: this.create,
+      middlewares: [new ValidateDtoMiddleware(CreateOfferDto)]
+    });
     this.addRoute({
       path: '/:offerId',
       method: HttpMethod.Get,
