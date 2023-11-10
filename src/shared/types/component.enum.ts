@@ -8,10 +8,12 @@ export enum Component {
   UserController = 'UserController',
   OfferModel = 'OfferModel',
   OfferService = 'OfferService',
+  OfferController = 'OfferController',
   AmenityModel = 'AmenityModel',
   AmenityService = 'AmenityService',
   AmenityController = 'AmenityController',
   CommentService = 'CommentService',
   CommentModel = 'CommentModel',
+  CommentController = 'CommentController',
   ExceptionFilter = 'ExceptionFilter',
 }

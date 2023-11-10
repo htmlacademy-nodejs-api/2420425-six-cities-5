@@ -1,5 +1,5 @@
 import { getModelForClass, prop, defaultClasses, modelOptions, Ref, mongoose } from '@typegoose/typegoose';
-import { CityName, Coords, Estate } from '../../types/index.js';
+import { CityName, Estate } from '../../types/index.js';
 import { UserEntity } from '../user/index.js';
 import { AmenityEntity } from '../amenity/index.js';
 
@@ -67,9 +67,6 @@ export class OfferEntity extends defaultClasses.TimeStamps {
 
   @prop({ default: 0 })
   public commentCount!: number;
-
-  @prop({ required: true })
-  public coords: mongoose.Types.Array<Coords>;
 }
 
 export const OfferModel = getModelForClass(OfferEntity);

@@ -1,22 +1,32 @@
 import { inject, injectable } from 'inversify';
 import { DocumentType, types } from '@typegoose/typegoose';
+import { StatusCodes } from 'http-status-codes';
+import { SortType } from '../../types/index.js';
+import { AmenityEntity } from '../amenity/amenity.entity.js';
 import { Component } from '../../types/component.enum.js';
+import { HttpError } from '../../libs/rest/index.js';
 import { Logger } from '../../libs/logger/index.js';
-import { CreateOfferDto } from './index.js';
+import { CreateOfferDto } from './dto/create-offer.dto.js';
 import { OfferService } from './offer-service.interface.js';
 import { OfferEntity } from './offer.entity.js';
 import { UpdateOfferDto } from './dto/update-offer.dto.js';
 import { DEFAULT_OFFER_COUNT } from './offer.constant.js';
-import { SortType } from '../../types/index.js';
+
 
 @injectable()
 export class DefaultOfferService implements OfferService {
   constructor(
     @inject(Component.Logger) private readonly logger: Logger,
-    @inject(Component.OfferModel) private readonly offerModel: types.ModelType<OfferEntity>
+    @inject(Component.OfferModel) private readonly offerModel: types.ModelType<OfferEntity>,
+    @inject(Component.AmenityModel) private readonly amenityModel: types.ModelType<AmenityEntity>
   ) { }
 
   public async create(dto: CreateOfferDto): Promise<DocumentType<OfferEntity>> {
+    const foundCategories = await this.amenityModel.find({ _id: { $in: dto.amenities }});
+    if (foundCategories.length !== dto.amenities.length) {
+      throw new HttpError(StatusCodes.BAD_REQUEST, 'Some amenities not exists', 'DefaultOfferService');
+    }
+
     const result = await this.offerModel.create(dto);
     this.logger.info(`New offer created: ${dto.title}`);
 
@@ -52,6 +62,13 @@ export class DefaultOfferService implements OfferService {
   }
 
   public async updateById(offerId: string, dto: UpdateOfferDto): Promise<DocumentType<OfferEntity> | null> {
+    if (dto.amenities) {
+      const foundCategories = await this.amenityModel.find({ _id: { $in: dto.amenities }});
+      if (foundCategories.length !== dto.amenities.length) {
+        throw new HttpError(StatusCodes.BAD_REQUEST, 'Some amenities not exists', 'DefaultOfferService');
+      }
+    }
+
     return this.offerModel
       .findByIdAndUpdate(offerId, dto, { new: true })
       .populate(['userId', 'amenities'])

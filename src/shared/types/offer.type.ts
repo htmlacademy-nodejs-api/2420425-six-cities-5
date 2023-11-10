@@ -25,5 +25,8 @@ export type Offer = {
   amenities: Amenity[];
   user: User;
   commentsCount?: number;
+  /**
+   * TODO - удалить после добавления в city
+   */
   coords: Coords;
 }
