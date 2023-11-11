@@ -38,4 +38,9 @@ Content-Type: image/png
 < /home/nikita/pet_projects/2420425-six-cities-5/scr.png
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
-##
+###
+
+## Проверка авторизации пользователя
+GET http://localhost:3003/users/login HTTP/1.1
+
+###

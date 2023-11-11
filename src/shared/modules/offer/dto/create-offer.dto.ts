@@ -14,7 +14,6 @@ import {
   ArrayMinSize,
   ArrayMaxSize,
 } from 'class-validator';
-import { Types } from 'mongoose';
 import { CityName, Estate } from '../../../types/index.js';
 import { CreateOfferValidationMessage } from './create-offer.messages.js';
 
@@ -86,8 +85,7 @@ export class CreateOfferDto {
     each: true,
     message: CreateOfferValidationMessage.amenities.invalidId,
   })
-  public amenities: Types.ObjectId[];
+  public amenities: string[];
 
-  @IsMongoId({ message: CreateOfferValidationMessage.userId.invalidId })
-  public userId: Types.ObjectId;
+  public userId: string;
 }

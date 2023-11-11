@@ -1,4 +1,3 @@
-import { Types } from 'mongoose';
 import {
   ArrayMaxSize,
   ArrayMinSize,
@@ -102,5 +101,5 @@ export class UpdateOfferDto {
     each: true,
     message: UpdateOfferValidationMessage.amenities.invalidId,
   })
-  public amenities?: Types.ObjectId[];
+  public amenities?: string[];
 }
