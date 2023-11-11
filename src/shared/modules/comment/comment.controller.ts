@@ -35,7 +35,7 @@ export class CommentController extends BaseController {
   }
 
   public async create(
-    { body }: TypedRequst<CreateCommentDto>,
+    { body, tokenPayload }: TypedRequst<CreateCommentDto>,
     res: Response
   ): Promise<void> {
 
@@ -47,7 +47,7 @@ export class CommentController extends BaseController {
       );
     }
 
-    const comment = await this.commentService.create(body);
+    const comment = await this.commentService.create({ ...body, userId: tokenPayload.id });
     await this.offerService.incCommentCount(body.offerId);
     this.created(res, fillDTO(CommentRdo, comment));
   }
