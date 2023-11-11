@@ -5,6 +5,7 @@ import {
   BaseController,
   HttpError,
   HttpMethod,
+  PrivateRouteMiddleware,
   RequestQuery,
   ValidateDtoMiddleware,
   ValidateObjectIdMiddleware,
@@ -35,7 +36,10 @@ export class AmenityController extends BaseController {
       path: '/',
       method: HttpMethod.Post,
       handler: this.create,
-      middlewares: [new ValidateDtoMiddleware(CreateAmenityDto)],
+      middlewares: [
+        new PrivateRouteMiddleware(),
+        new ValidateDtoMiddleware(CreateAmenityDto),
+      ],
     });
     this.addRoute({
       path: '/:amenityId/offers',
