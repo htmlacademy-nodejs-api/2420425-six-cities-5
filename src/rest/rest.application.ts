@@ -19,6 +19,7 @@ export class RestApplication {
     @inject(Component.ExceptionFilter) private readonly appExceptionFilter: ExceptionFilter,
     @inject(Component.UserController) private readonly userController: Controller,
     @inject(Component.OfferController) private readonly offerController: Controller,
+    @inject(Component.CityController) private readonly cityController: Controller,
     @inject(Component.CommentController) private readonly commentController: Controller,
     @inject(Component.AuthExceptionFilter) private readonly authExceptionFilter: ExceptionFilter,
   ) {
@@ -46,6 +47,7 @@ export class RestApplication {
     this.server.use('/amenities', this.amenityController.router);
     this.server.use('/users', this.userController.router);
     this.server.use('/offers', this.offerController.router);
+    this.server.use('/cities', this.cityController.router);
     this.server.use('/comments', this.commentController.router);
   }
 

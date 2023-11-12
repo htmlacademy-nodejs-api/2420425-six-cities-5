@@ -18,4 +18,7 @@ export enum Component {
   ExceptionFilter = 'ExceptionFilter',
   AuthService = 'AuthService',
   AuthExceptionFilter = 'AuthExceptionFilter',
+  CityModel = 'CityModel',
+  CityService = 'CityService',
+  CityController = 'CityController',
 }

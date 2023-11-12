@@ -48,9 +48,6 @@ export function createOffer(offerData: string): Offer {
     price: Number.parseInt(price, 10),
     amenities: amenities.split(';') as Amenity[],
     user: user,
-    /**
-     * TODO вынести в city
-     */
     coords: {
       latitude,
       longitude,

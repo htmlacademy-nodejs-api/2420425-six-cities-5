@@ -8,6 +8,7 @@ import { createOfferContainer } from './shared/modules/offer/index.js';
 import { createAmenityContainer } from './shared/modules/amenity/index.js';
 import { createCommentContainer } from './shared/modules/comment/index.js';
 import { createAuthContainer } from './shared/modules/auth/index.js';
+import { createCityContainer } from './shared/modules/city/index.js';
 
 async function bootstrap() {
   const appContainer = Container.merge(
@@ -17,6 +18,7 @@ async function bootstrap() {
     createAmenityContainer(),
     createCommentContainer(),
     createAuthContainer(),
+    createCityContainer(),
   );
 
   const application = appContainer.get<RestApplication>(Component.RestApplication);
