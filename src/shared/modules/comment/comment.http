@@ -7,8 +7,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Iml2YW5vdkBnbWFpbC5jb20iL
 
 {
   "text": "Очередной Тестовый коммент 2",
-  "offerId": "6550effb07d20073cd38de00",
-  "userId": "6550effb07d20073cd38ddf8"
+  "offerId": "6550effb07d20073cd38de00"
 }
 
 ###
