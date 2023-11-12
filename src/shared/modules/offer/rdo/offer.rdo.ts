@@ -1,6 +1,7 @@
 import { Expose, Type } from 'class-transformer';
 import { UserRdo } from '../../user/rdo/user.rdo.js';
 import { AmenityRdo } from '../../amenity/index.js';
+import { CityRdo } from '../../city/index.js';
 
 export class OfferRdo {
   @Expose()
@@ -15,11 +16,8 @@ export class OfferRdo {
   @Expose()
   public postDate: string;
 
-  /**
-   * TODO - Исправить на объект с coords
-   */
   @Expose()
-  public city: string;
+  public city: CityRdo;
 
   @Expose()
   public preview: string;

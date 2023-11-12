@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { OfferGenerator } from './offer-generator.interface.js';
 import { CityName, MockServerData, Amenity, Estate, UserType } from '../../types/index.js';
-import { generateRandomValue, getRandomItem, getRandomItems } from '../../helpers/index.js';
+import { generateRandomValue, getRandomId, getRandomItem, getRandomItems } from '../../helpers/index.js';
 import { CITIES } from '../../constants/coords.js';
 
 const MIN_PRICE = 500;
@@ -20,7 +20,7 @@ export class TSVOfferGenerator implements OfferGenerator {
     const title = getRandomItem(this.mockData.titles);
     const description = getRandomItem(this.mockData.descriptions);
     const name = getRandomItem(this.mockData.names);
-    const email = getRandomItem(this.mockData.emails);
+    const email = getRandomId(4) + getRandomItem(this.mockData.emails);
     const avatar = getRandomItem(this.mockData.avatars);
     const photos = getRandomItems(this.mockData.photos);
     const preview = getRandomItem(this.mockData.previews);
@@ -59,9 +59,6 @@ export class TSVOfferGenerator implements OfferGenerator {
       guests,
       price,
       amenities: amenities.join(';'),
-      /**
-       * TODO - вынести в city
-       */
       coords: Object.values(coords).join(','),
     };
 

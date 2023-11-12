@@ -1,7 +1,8 @@
 import { getModelForClass, prop, defaultClasses, modelOptions, Ref, mongoose } from '@typegoose/typegoose';
-import { CityName, Estate } from '../../types/index.js';
+import { Estate } from '../../types/index.js';
 import { UserEntity } from '../user/index.js';
 import { AmenityEntity } from '../amenity/index.js';
+import { CityEntity } from '../city/city.entity.js';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export interface OfferEntity extends defaultClasses.Base { }
@@ -22,8 +23,11 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({ required: true })
   public postDate: Date;
 
-  @prop({ required: true, type: () => String, enum: CityName })
-  public city: CityName;
+  @prop({
+    ref: CityEntity,
+    required: true
+  })
+  public city: Ref<CityEntity>;
 
   @prop({ required: true })
   public preview: string;

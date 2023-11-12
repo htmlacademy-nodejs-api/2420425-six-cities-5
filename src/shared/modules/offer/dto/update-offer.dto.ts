@@ -16,7 +16,7 @@ import {
   MinLength,
 } from 'class-validator';
 import { UpdateOfferValidationMessage } from './update-offer.messages.js';
-import { CityName, Estate } from '../../../types/index.js';
+import { Estate } from '../../../types/index.js';
 
 
 export class UpdateOfferDto {
@@ -37,13 +37,12 @@ export class UpdateOfferDto {
     { message: UpdateOfferValidationMessage.postDate.invalidFormat }
   )
   public postDate?: Date;
-  /**
-   * TODO - Исправить на объект с coords
-   * оставить только ссылку на сущность
-   */
 
   @IsOptional()
-  public city?: CityName;
+  @IsMongoId({
+    message: UpdateOfferValidationMessage.city.invalidId,
+  })
+  public city?: string;
 
   @IsOptional()
   @IsString({ message: UpdateOfferValidationMessage.preview.invalidFormat })
