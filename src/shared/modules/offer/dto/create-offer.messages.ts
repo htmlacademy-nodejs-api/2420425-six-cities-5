@@ -11,9 +11,9 @@ export const CreateOfferValidationMessage = {
   postDate: {
     invalidFormat: 'postDate must be a valid ISO date',
   },
-  /**
-   * TODO Добавить здесь валидацию для city
-   */
+  city: {
+    invalidId: 'City field must be a valid id',
+  },
   preview: {
     invalidFormat: 'preview must be a string',
   },

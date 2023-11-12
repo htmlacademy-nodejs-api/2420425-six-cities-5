@@ -60,9 +60,9 @@ export class AmenityController extends BaseController {
     res: Response
   ): Promise<void> {
 
-    const existCategory = await this.amenityService.findByAmenityName(body.name);
+    const existAmenity = await this.amenityService.findByAmenityName(body.name);
 
-    if (existCategory) {
+    if (existAmenity) {
       throw new HttpError(
         StatusCodes.UNPROCESSABLE_ENTITY,
         `Amenity with name «${body.name}» exists.`,

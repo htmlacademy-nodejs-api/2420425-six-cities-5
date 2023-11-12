@@ -14,7 +14,7 @@ import {
   ArrayMinSize,
   ArrayMaxSize,
 } from 'class-validator';
-import { CityName, Estate } from '../../../types/index.js';
+import { Estate } from '../../../types/index.js';
 import { CreateOfferValidationMessage } from './create-offer.messages.js';
 
 export class CreateOfferDto {
@@ -32,12 +32,11 @@ export class CreateOfferDto {
     { message: CreateOfferValidationMessage.postDate.invalidFormat }
   )
   public postDate: Date;
-  /**
-   * TODO - Исправить на объект с coords
-   * оставить только ссылку на сущность
-   */
 
-  public city: CityName;
+  @IsMongoId({
+    message: CreateOfferValidationMessage.city.invalidId,
+  })
+  public city: string;
 
   @IsString({ message: CreateOfferValidationMessage.preview.invalidFormat })
   public preview: string;
