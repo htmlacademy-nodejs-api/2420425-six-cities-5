@@ -14,7 +14,7 @@ export class HelpCommand implements Command {
         Команды:
             ${chalk.magenta('--version:')}                   # выводит номер версии
             ${chalk.magenta('--help:')}                      # печатает этот текст
-            ${chalk.magenta('--import <path>:')}             # импортирует данные из TSV
+            ${chalk.magenta('--import <path> <login> <password> <host> <dbname> <salt>:')} # импортирует данные из TSV
             ${chalk.magenta('--generate <n> <path> <url>')}  # генерирует произвольное количество тестовых данных
     `);
   }
