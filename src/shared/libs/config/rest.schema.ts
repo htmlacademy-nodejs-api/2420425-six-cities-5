@@ -56,7 +56,7 @@ export const configRestSchema = convict<RestSchema>({
     doc: 'Database name (MongoDB)',
     format: String,
     env: 'DB_NAME',
-    default: 'buy-and-sell'
+    default: 'my-bd'
   },
   UPLOAD_DIRECTORY: {
     doc: 'Directory for upload files',

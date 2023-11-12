@@ -3,11 +3,11 @@
 
 POST http://localhost:3003/comments HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Iml2YW5vdkBnbWFpbC5jb20iLCJuYW1lIjoiSXZhbiIsImlkIjoiNjU1MGYwYzY2YzM3ZTlkMDMzMWNiOTExIiwiaWF0IjoxNjk5ODAzNDEzLCJleHAiOjE2OTk5NzYyMTN9.IrhK1dc5ag9Y05BwQoCbUwZPsIKMieCCAY3u9HIPBqE
 
 {
-  "text": "Очередной Тестовый коммент",
-  "offerId": "6542c25625a9a0acd48f495d",
-  "userId": "6542bb89c3748f810764c94b"
+  "text": "Очередной Тестовый коммент 2",
+  "offerId": "6550effb07d20073cd38de00"
 }
 
 ###

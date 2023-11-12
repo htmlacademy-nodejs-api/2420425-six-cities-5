@@ -52,7 +52,8 @@ export class ImportCommand implements Command {
     this.offerService = new DefaultOfferService(
       this.logger,
       OfferModel,
-      AmenityModel
+      AmenityModel,
+      CityModel,
     );
     this.userService = new DefaultUserService(this.logger, UserModel);
     this.databaseClient = new MongoDatabaseClient(this.logger);
@@ -103,11 +104,6 @@ export class ImportCommand implements Command {
     });
   }
 
-  /**
-   * Команда для запуска
-   *
-   * -- --import './mocks/mock-data.tsv' 'admin_main' 'password' '127.0.0.1' 'main_db' 'secret'
-   */
   public async execute(
     filename: string,
     login: string,

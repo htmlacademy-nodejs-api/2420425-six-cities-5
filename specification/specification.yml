@@ -15,8 +15,6 @@ tags:
     description: Действия с комментариями.
   - name: cities
     description: Действия с городами.
-  - name: estates
-    description: Действия с типом жилья.
   - name: offers
     description: Действия с объявлениями.
   - name: users
@@ -69,7 +67,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/user"
+                $ref: "#/components/schemas/loggedUser"
 
         "401":
           description: Неправильный логин или пароль пользователя.
@@ -82,6 +80,10 @@ paths:
       responses:
         "200":
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/checkUser"
 
   /users/{userId}/avatar:
     post:
@@ -132,52 +134,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/comment"
-
-    get:
-      tags:
-        - comments
-      summary: Получение комментариев
-      description: Возвращает список всех комментариев
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/comment"
-
-  /comments/{commentId}:
-    put:
-      tags:
-        - comments
-      summary: Обновление комментария
-      description: Обновляет указанный комментарий
-
-      requestBody:
-        description: Данные для обновления комментария.
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/createComment"
-
-      responses:
-        "201":
-          description: Комментарий был обновлен. Объект обновленного комментария.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/comment"
-
-    delete:
-      tags:
-        - comments
-      summary: Удаление комментария
-      description: Удаляет указанный комментарий
-      responses:
-        "204":
-          description: No Content
 
   /cities:
     get:
@@ -240,7 +196,21 @@ paths:
                   $ref: "#/components/schemas/offer"
 
   /offers/{offerId}:
-    put:
+    get:
+      tags:
+        - offers
+      summary: Получение предложения по id
+      description: возвращает информацию о предложении
+
+      responses:
+        "200":
+          description: Информация о предложении.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/offer"
+
+    patch:
       tags:
         - offers
       summary: Обновление предложения об аренде
@@ -251,7 +221,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/createOffer"
+              $ref: "#/components/schemas/offer"
 
       responses:
         "201":
@@ -270,6 +240,72 @@ paths:
         "204":
           description: No Content
 
+  /offers/{offerId}/comments:
+    get:
+      tags:
+        - offers
+      summary: Список комментариев к объявлению
+      description: Возвращает список комментариев к объявлению
+
+      responses:
+        "200":
+          description: список комментариев
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/comment"
+
+  /offers/user/favorites:
+    get:
+      tags:
+        - offers
+      summary: Список избранных предложений
+      description: Возвращает список избранных предложений
+
+      responses:
+        "200":
+          description: список предложений
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/offer"
+
+  /cities/{cityId}/offers:
+    get:
+      tags:
+        - cities
+      summary: Получение отфильтрованных предложений
+      description: Возвращает список предложений для конкретного города
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/offer"
+
+  /amenities/{amenityId}/offers:
+    get:
+      tags:
+        - amenities
+      summary: Получение отфильтрованных предложений
+      description: Возвращает список предложений с конкретными удобствами
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/offer"
+
   /amenities:
     get:
       tags:
@@ -285,29 +321,6 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/amenity"
-
-        "404":
-          description: Not found response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/errorMessage"
-
-  /estates:
-    get:
-      tags:
-        - estates
-      summary: Получение типов предложений
-      description: Возвращает список доступных типов предложений
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/estate"
 
         "404":
           description: Not found response
@@ -350,17 +363,41 @@ components:
           type: string
           example: 123456
 
-    user:
+    loggedUser:
       type: object
 
       properties:
-        id:
+        token:
           type: string
-          example: 123qwerty4567890
+          example: eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im1lZ2F0b21hdG9zQGdtYWlsLmNvbSIsIm5hbWUiOiJUb21hdG8iLCJpZCI6IjY1NTEwYjU3NzUwYzc0YTE0YTM1ODJhNiIsImlhdCI6MTY5OTgyNDE2OCwiZXhwIjoxNjk5OTk2OTY4fQ.wsFGzxw1rynXUdHD2XFf3wWyKNlPc7dsjfCtKUzYGDM
 
         email:
           type: string
           example: ivan@gmail.com
+
+    checkUser:
+      type: object
+
+      properties:
+        email:
+          type: string
+          example: ivan@gmail.com
+
+    user:
+      type: object
+
+      properties:
+        name:
+          type: string
+          example: Ivan
+
+        email:
+          type: string
+          example: ivan@gmail.com
+
+        avatarPath:
+          type: string
+          example: "avatar.png"
 
     city:
       type: object
@@ -368,7 +405,7 @@ components:
       properties:
         id:
           type: string
-          example: 123qwerty4567890
+          example: 6550ed7db585005ec7ff4640
 
         name:
           type: string
@@ -381,18 +418,6 @@ components:
         longitude:
           type: string
           example: 4.895168
-
-    estate:
-      type: object
-
-      properties:
-        id:
-          type: string
-          example: 123qwerty4567890
-
-        name:
-          type: string
-          example: apartment
 
     amenity:
       type: object
@@ -410,7 +435,7 @@ components:
       type: object
 
       properties:
-        message:
+        error:
           type: string
           example: Текст ошибки
 
@@ -418,12 +443,9 @@ components:
       type: object
 
       properties:
-        id:
+        filepath:
           type: string
-          example: 123qwerty4567890
-        path:
-          type: string
-          example: /images/best-avatar.jpg
+          example: /six-cities/upload/WnGYvbdT7vE8twJIo4NbD.png
 
     createComment:
       type: object
@@ -433,23 +455,26 @@ components:
           type: string
           example: Примерный текст комментария
 
+        offerId:
+          type: string
+          example: 6550effb07d20073cd38de00
+
     comment:
       type: object
 
       properties:
         id:
           type: string
-          example: 123qwerty4567890
+          example: 65514405cf94716d5bfe2f23
         text:
           type: string
           example: Текст комментария
-        date:
+        postDate::
           type: string
           format: date-time
           example: 2023-03-20T09:12:28Z
-        rating:
-          type: integer
-          example: 5
+        user:
+          $ref: "#/components/schemas/user"
 
     preview:
       type: string
@@ -500,7 +525,8 @@ components:
           example: 3
 
         type:
-          $ref: "#/components/schemas/estate"
+          type: string
+          example: room
 
         rooms:
           type: integer
@@ -532,4 +558,4 @@ components:
             id:
               type: string
               example: 123qwerty4567890
-        - $ref: "#/components/schemas/createUser"
+        - $ref: "#/components/schemas/createOffer"

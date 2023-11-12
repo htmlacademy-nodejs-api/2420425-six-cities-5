@@ -4,3 +4,7 @@ GET http://localhost:3003/cities HTTP/1.1
 
 ###
 
+## Получить список оферов для конкретного города
+GET http://localhost:3003/cities/6550effb07d20073cd38de59/offers HTTP/1.1
+
+###
