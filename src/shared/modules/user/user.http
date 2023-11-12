@@ -5,10 +5,10 @@ POST http://localhost:3003/users/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "ivanov@gmail.com",
-  "avatarPath": "avatar.png",
-  "name": "Ivan",
-  "password": "secret"
+  "email": "megatomatos@gmail.com",
+  "avatarPath": "tomatos.png",
+  "name": "Tomato",
+  "password": "tomatoma"
 }
 
 ###
@@ -20,8 +20,8 @@ POST http://localhost:3003/users/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "ivanov@gmail.com",
-  "password": "secret"
+  "email": "megatomatos@gmail.com",
+  "password": "tomatoma"
 }
 
 ###
@@ -42,5 +42,6 @@ Content-Type: image/png
 
 ## Проверка авторизации пользователя
 GET http://localhost:3003/users/login HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im1lZ2F0b21hdG9zQGdtYWlsLmNvbSIsIm5hbWUiOiJUb21hdG8iLCJpZCI6IjY1NTEwYjU3NzUwYzc0YTE0YTM1ODJhNiIsImlhdCI6MTY5OTgxMDI1MSwiZXhwIjoxNjk5OTgzMDUxfQ.8fwMhiZi81s6ahOBsCEf5SayeCU_q0ocN8ZK4PXt73A
 
 ###

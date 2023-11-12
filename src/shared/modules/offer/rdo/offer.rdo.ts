@@ -17,6 +17,7 @@ export class OfferRdo {
   public postDate: string;
 
   @Expose()
+  @Type(() => CityRdo)
   public city: CityRdo;
 
   @Expose()
