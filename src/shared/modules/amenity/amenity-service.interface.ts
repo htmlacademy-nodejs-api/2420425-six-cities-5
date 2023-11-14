@@ -1,7 +1,7 @@
 import { DocumentType } from '@typegoose/typegoose';
-import { CreateAmenityDto } from './dto/create-amenity.dto.js';
+import { Amenity } from '../../types/index.js';
 import { AmenityEntity } from './amenity.entity.js';
-import { Amenity } from '../../types/offer.enum.js';
+import { CreateAmenityDto } from './dto/index.js';
 
 export interface AmenityService {
   create(dto: CreateAmenityDto): Promise<DocumentType<AmenityEntity>>;

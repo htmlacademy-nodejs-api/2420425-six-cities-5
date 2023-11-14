@@ -11,11 +11,11 @@ import {
 } from '../../libs/rest/index.js';
 import { Component } from '../../types/index.js';
 import { Logger } from '../../libs/logger/index.js';
-import { CommentService } from './comment-service.interface.js';
-import { OfferService } from '../offer/index.js';
 import { fillDTO } from '../../helpers/index.js';
-import { CommentRdo } from './rdo/comment.rdo.js';
-import { CreateCommentDto } from './index.js';
+import { OfferService } from '../offer/index.js';
+import { CreateCommentDto } from './dto/index.js';
+import { CommentRdo } from './rdo/index.js';
+import { CommentService } from './comment-service.interface.js';
 
 @injectable()
 export class CommentController extends BaseController {

@@ -16,11 +16,9 @@ import { fillDTO } from '../../helpers/index.js';
 import { Logger } from '../../libs/logger/index.js';
 import { Component } from '../../types/index.js';
 import { AuthService } from '../auth/index.js';
-import { CreateUserDto } from './dto/create-user.dto.js';
+import { CreateUserDto, LoginUserDto } from './dto/index.js';
+import { LoggedUserRdo, UserRdo } from './rdo/index.js';
 import { UserService } from './user-service.interface.js';
-import { UserRdo } from './rdo/user.rdo.js';
-import { LoginUserDto } from './dto/login-user.dto.js';
-import { LoggedUserRdo } from './rdo/logged-user.rdo.js';
 
 @injectable()
 export class UserController extends BaseController {

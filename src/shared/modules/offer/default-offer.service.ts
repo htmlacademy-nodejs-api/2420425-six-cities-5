@@ -2,15 +2,14 @@ import { inject, injectable } from 'inversify';
 import { DocumentType, types } from '@typegoose/typegoose';
 import { StatusCodes } from 'http-status-codes';
 import { SortType } from '../../types/index.js';
-import { AmenityEntity } from '../amenity/amenity.entity.js';
+import { AmenityEntity } from '../amenity/index.js';
 import { CityEntity } from '../city/index.js';
-import { Component } from '../../types/component.enum.js';
+import { Component } from '../../types/index.js';
 import { HttpError } from '../../libs/rest/index.js';
 import { Logger } from '../../libs/logger/index.js';
-import { CreateOfferDto } from './dto/create-offer.dto.js';
+import { CreateOfferDto, UpdateOfferDto } from './dto/index.js';
 import { OfferService } from './offer-service.interface.js';
 import { OfferEntity } from './offer.entity.js';
-import { UpdateOfferDto } from './dto/update-offer.dto.js';
 import { DEFAULT_OFFER_COUNT, DEFAULT_PREMIUM_OFFER_COUNT } from './offer.constant.js';
 
 

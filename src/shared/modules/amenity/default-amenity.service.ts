@@ -1,11 +1,10 @@
 import { inject, injectable } from 'inversify';
 import { DocumentType, types } from '@typegoose/typegoose';
-import { Component } from '../../types/component.enum.js';
 import { Logger } from '../../libs/logger/index.js';
-import { Amenity, SortType } from '../../types/index.js';
+import { Amenity, SortType, Component } from '../../types/index.js';
 import { AmenityEntity } from './amenity.entity.js';
 import { AmenityService } from './amenity-service.interface.js';
-import { CreateAmenityDto } from './dto/create-amenity.dto.js';
+import { CreateAmenityDto } from './dto/index.js';
 import { MAX_AMENITIES_COUNT } from './amenity.constant.js';
 
 @injectable()
