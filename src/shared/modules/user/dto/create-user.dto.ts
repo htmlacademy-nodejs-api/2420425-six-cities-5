@@ -1,9 +1,15 @@
 import { IsEmail, IsString, Length } from 'class-validator';
+import {
+  MIN_USER_NAME_LENGTH,
+  MAX_USER_NAME_LENGTH,
+  MIN_USER_PASSPORT_LENGTH,
+  MAX_USER_PASSPORT_LENGTH,
+} from '../user.constant.js';
 import { CreateUserMessages } from './create-user.messages.js';
 
 export class CreateUserDto {
   @IsString({ message: CreateUserMessages.name.invalidFormat })
-  @Length(1, 15, { message: CreateUserMessages.name.lengthField })
+  @Length(MIN_USER_NAME_LENGTH, MAX_USER_NAME_LENGTH, { message: CreateUserMessages.name.lengthField })
   public name: string;
 
   @IsEmail({}, { message: CreateUserMessages.email.invalidFormat })
@@ -13,6 +19,6 @@ export class CreateUserDto {
   public avatarPath: string;
 
   @IsString({ message: CreateUserMessages.password.invalidFormat })
-  @Length(6, 12, { message: CreateUserMessages.password.lengthField })
+  @Length(MIN_USER_PASSPORT_LENGTH, MAX_USER_PASSPORT_LENGTH, { message: CreateUserMessages.password.lengthField })
   public password: string;
 }
