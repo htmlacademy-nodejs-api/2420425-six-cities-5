@@ -1,3 +1,4 @@
+export * from './application-error.enum.js';
 export * from './http-method.enum.js';
 export * from './request-body.type.js';
 export * from './request-query.type.js';
