@@ -1,5 +1,5 @@
 import { Expose, Type } from 'class-transformer';
-import { UserRdo } from '../../user/rdo/user.rdo.js';
+import { UserRdo } from '../../user/rdo/index.js';
 import { AmenityRdo } from '../../amenity/index.js';
 import { CityRdo } from '../../city/index.js';
 
