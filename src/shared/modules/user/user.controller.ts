@@ -17,7 +17,7 @@ import { Logger } from '../../libs/logger/index.js';
 import { Component } from '../../types/index.js';
 import { AuthService } from '../auth/index.js';
 import { CreateUserDto, LoginUserDto } from './dto/index.js';
-import { LoggedUserRdo, UserRdo } from './rdo/index.js';
+import { LoggedUserRdo, UploadUserAvatarRdo, UserRdo } from './rdo/index.js';
 import { UserService } from './user-service.interface.js';
 
 @injectable()
@@ -88,10 +88,11 @@ export class UserController extends BaseController {
     this.created(res, fillDTO(UserRdo, result));
   }
 
-  public async uploadAvatar(req: Request, res: Response) {
-    this.created(res, {
-      filepath: req.file?.path
-    });
+  public async uploadAvatar({ params, file }: Request, res: Response) {
+    const { userId } = params;
+    const uploadFile = { avatarPath: file?.filename };
+    await this.userService.updateById(userId, uploadFile);
+    this.created(res, fillDTO(UploadUserAvatarRdo, { filepath: uploadFile.avatarPath }));
   }
 
   public async checkAuthenticate({ tokenPayload: { email } }: Request, res: Response) {

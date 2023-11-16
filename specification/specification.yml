@@ -385,6 +385,10 @@ components:
       type: object
 
       properties:
+        id:
+          type: string
+          example: 1868293949234ewr
+
         name:
           type: string
           example: Ivan
