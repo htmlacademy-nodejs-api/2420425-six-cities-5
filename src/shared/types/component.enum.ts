@@ -23,4 +23,5 @@ export enum Component {
   CityModel = 'CityModel',
   CityService = 'CityService',
   CityController = 'CityController',
+  PathTransformer = 'PathTransformer',
 }
