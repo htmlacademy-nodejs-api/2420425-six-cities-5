@@ -5,8 +5,7 @@ POST http://localhost:3003/users/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "megatomatos@gmail.com",
-  "avatarPath": "tomatos.png",
+  "email": "megatomatosss@gmail.com",
   "name": "Tomato",
   "password": "tomatoma"
 }

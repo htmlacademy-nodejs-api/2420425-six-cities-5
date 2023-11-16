@@ -364,16 +364,14 @@ components:
           example: 123456
 
     loggedUser:
-      type: object
 
-      properties:
-        token:
-          type: string
-          example: eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im1lZ2F0b21hdG9zQGdtYWlsLmNvbSIsIm5hbWUiOiJUb21hdG8iLCJpZCI6IjY1NTEwYjU3NzUwYzc0YTE0YTM1ODJhNiIsImlhdCI6MTY5OTgyNDE2OCwiZXhwIjoxNjk5OTk2OTY4fQ.wsFGzxw1rynXUdHD2XFf3wWyKNlPc7dsjfCtKUzYGDM
-
-        email:
-          type: string
-          example: ivan@gmail.com
+      allOf:
+        - type: object
+          properties:
+            token:
+              type: string
+              example: eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im1lZ2F0b21hdG9zQGdtYWlsLmNvbSIsIm5hbWUiOiJUb21hdG8iLCJpZCI6IjY1NTEwYjU3NzUwYzc0YTE0YTM1ODJhNiIsImlhdCI6MTY5OTgyNDE2OCwiZXhwIjoxNjk5OTk2OTY4fQ.wsFGzxw1rynXUdHD2XFf3wWyKNlPc7dsjfCtKUzYGDM
+        - $ref: "#/components/schemas/user"
 
     checkUser:
       type: object
