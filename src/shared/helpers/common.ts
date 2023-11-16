@@ -48,3 +48,11 @@ export function reduceValidationErrors(errors: ValidationError[]): ValidationErr
 export function getFullServerPath(host: string, port: number) {
   return `http://${host}:${port}`;
 }
+
+export function isFileExtentionInvalid(fileExtention: string | boolean) {
+  if (typeof fileExtention !== 'string') {
+    return false;
+  }
+
+  return !['jpg', 'png'].includes(fileExtention);
+}

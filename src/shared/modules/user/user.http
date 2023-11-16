@@ -32,10 +32,10 @@ POST http://localhost:3003/users/6542c25525a9a0acd48f4956/avatar HTTP/1.1
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="avatar"; filename="scr.png"
+Content-Disposition: form-data; name="avatar"; filename="robot.png"
 Content-Type: image/png
 
-< /home/nikita/pet_projects/2420425-six-cities-5/scr.png
+< /home/nikita/pet_projects/2420425-six-cities-5/robot.png
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 ###
