@@ -11,14 +11,13 @@ import {
   ValidateObjectIdMiddleware,
 } from '../../libs/rest/index.js';
 import { Logger } from '../../libs/logger/index.js';
-import { fillDTO } from '../../helpers/common.js';
+import { fillDTO } from '../../helpers/index.js';
 import { Component } from '../../types/index.js';
+import { OfferService, OfferRdo } from '../offer/index.js';
+import { AmenityRdo } from './rdo/index.js';
 import { AmenityService } from './amenity-service.interface.js';
-import { OfferService } from '../offer/index.js';
-import { AmenityRdo } from './rdo/amenity.rdo.js';
-import { CreateAmenityDto } from './dto/create-amenity.dto.js';
+import { CreateAmenityDto } from './dto/index.js';
 import { ParamAmenityId } from './types/index.js';
-import { OfferRdo } from '../offer/rdo/offer.rdo.js';
 
 @injectable()
 export class AmenityController extends BaseController {

@@ -5,7 +5,7 @@ import { Logger } from '../../libs/logger/index.js';
 import { Config, RestSchema } from '../../libs/config/index.js';
 import { Component } from '../../types/index.js';
 import { LoginUserDto, UserEntity, UserService } from '../user/index.js';
-import { TokenPayload } from './types/token-payload.js';
+import { TokenPayload } from './types/index.js';
 import { AuthService } from './auth-service.interface.js';
 import { UserNotFoundException, UserPasswordIncorrectException } from './errors/index.js';
 import { JWT_ALGORITHM, JWT_EXPIRED } from './auth.constant.js';
@@ -23,7 +23,6 @@ export class DefaultAuthService implements AuthService {
     const secretKey = crypto.createSecretKey(jwtSecret, 'utf-8');
     const tokenPayload: TokenPayload = {
       email: user.email,
-      name: user.name,
       id: user.id,
     };
 

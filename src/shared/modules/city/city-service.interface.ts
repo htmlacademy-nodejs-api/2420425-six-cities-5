@@ -1,6 +1,6 @@
 import { DocumentType } from '@typegoose/typegoose';
-import { CityName } from '../../types/city-name.enum.js';
-import { CreateCityDto } from './dto/create-city.dto.js';
+import { CityName } from '../../types/index.js';
+import { CreateCityDto } from './dto/index.js';
 import { CityEntity } from './city.entity.js';
 
 export interface CityService {

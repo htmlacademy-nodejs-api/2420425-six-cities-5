@@ -1,7 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import multer, { diskStorage } from 'multer';
 import { extension } from 'mime-types';
+import { StatusCodes } from 'http-status-codes';
 import { nanoid } from 'nanoid';
+import { isFileExtentionInvalid } from '../../../helpers/index.js';
+import { HttpError } from '../errors/index.js';
 import { Middleware } from './middleware.interface.js';
 
 export class UploadFileMiddleware implements Middleware {
@@ -16,7 +19,14 @@ export class UploadFileMiddleware implements Middleware {
       filename: (_req, file, callback) => {
         const fileExtention = extension(file.mimetype);
         const filename = nanoid();
-        callback(null, `${filename}.${fileExtention}`);
+
+        const error = isFileExtentionInvalid(fileExtention)
+          ? new HttpError(StatusCodes.UNPROCESSABLE_ENTITY,
+            'Invalid file extention. Available extensions: png and jpg.',
+            'UploadFileMiddleware')
+          : null;
+
+        callback(error, `${filename}.${fileExtention}`);
       }
     });
 

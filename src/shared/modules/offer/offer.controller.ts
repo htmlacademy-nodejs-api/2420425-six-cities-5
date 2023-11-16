@@ -12,13 +12,11 @@ import {
 import { Component } from '../../types/index.js';
 import { fillDTO } from '../../helpers/index.js';
 import { Logger } from '../../libs/logger/index.js';
+import { CommentService, CommentRdo } from '../comment/index.js';
 import { OfferService } from './offer-service.interface.js';
+import { CreateOfferDto, UpdateOfferDto } from './dto/index.js';
+import { OfferRdo } from './rdo/index.js';
 import { ParamOfferId } from './types/index.js';
-import { OfferRdo } from './rdo/offer.rdo.js';
-import { CreateOfferDto } from './index.js';
-import { UpdateOfferDto } from './dto/update-offer.dto.js';
-import { CommentRdo } from '../comment/rdo/index.js';
-import { CommentService } from '../comment/index.js';
 import {
   DEFAULT_DISCUSSED_OFFER_COUNT,
   DEFAULT_FAVORITE_OFFER_COUNT,

@@ -13,6 +13,8 @@ DB_PORT="123456" - порт для подключения к БД, по умол
 DB_NAME="name" - имя БД, по умолчанию `my-bd`
 UPLOAD_DIRECTORY="/upload/" - директория для загрузки файлов, по умолчанию = `null`
 JWT_SECRET="your-secret" - строка для создания токена, по умолчанию = `null`
+HOST="your-host" - хост, по умолчанию = `localhost`
+STATIC_DIRECTORY_PATH="dirname" - путь до папки для статических файлов, по умолчанию = `static`
 ```
 
 ## Окружение

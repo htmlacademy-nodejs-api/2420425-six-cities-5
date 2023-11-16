@@ -1,8 +1,19 @@
 import dayjs from 'dayjs';
+import { CITIES } from '../../constants/index.js';
+import {
+  CityName,
+  MockServerData,
+  Amenity,
+  Estate,
+  UserType,
+} from '../../types/index.js';
+import {
+  generateRandomValue,
+  getRandomId,
+  getRandomItem,
+  getRandomItems,
+} from '../../helpers/index.js';
 import { OfferGenerator } from './offer-generator.interface.js';
-import { CityName, MockServerData, Amenity, Estate, UserType } from '../../types/index.js';
-import { generateRandomValue, getRandomId, getRandomItem, getRandomItems } from '../../helpers/index.js';
-import { CITIES } from '../../constants/coords.js';
 
 const MIN_PRICE = 500;
 const MAX_PRICE = 2000;

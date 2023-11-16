@@ -13,8 +13,8 @@ import { Component } from '../../types/index.js';
 import { fillDTO } from '../../helpers/index.js';
 import { OfferRdo, OfferService } from '../offer/index.js';
 import { CityService } from './city-service.interface.js';
-import { CreateCityDto } from './dto/create-city.dto.js';
-import { CityRdo } from './rdo/city.rdo.js';
+import { CreateCityDto } from './dto/index.js';
+import { CityRdo } from './rdo/index.js';
 import { ParamCityId } from './types/index.js';
 
 @injectable()

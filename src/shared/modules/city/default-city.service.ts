@@ -4,7 +4,7 @@ import { Logger } from '../../libs/logger/index.js';
 import { CityName, Component } from '../../types/index.js';
 import { CityService } from './city-service.interface.js';
 import { CityEntity } from './city.entity.js';
-import { CreateCityDto } from './dto/create-city.dto.js';
+import { CreateCityDto } from './dto/index.js';
 
 @injectable()
 export class DefaultCityService implements CityService {
