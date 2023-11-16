@@ -15,9 +15,6 @@ export class CreateUserDto {
   @IsEmail({}, { message: CreateUserMessages.email.invalidFormat })
   public email: string;
 
-  @IsString({ message: CreateUserMessages.avatarPath.invalidFormat })
-  public avatarPath: string;
-
   @IsString({ message: CreateUserMessages.password.invalidFormat })
   @Length(MIN_USER_PASSPORT_LENGTH, MAX_USER_PASSPORT_LENGTH, { message: CreateUserMessages.password.lengthField })
   public password: string;
